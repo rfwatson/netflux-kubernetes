@@ -1,0 +1,4 @@
+---
+- op: replace
+  path: /spec/template/spec/containers/0/args/1
+  value: "--publish-service=$(POD_NAMESPACE)/prod-ingress-nginx-controller"

@@ -1,3 +1,11 @@
+---
 namePrefix: dev-
 resources:
 - ../base
+patchesJson6902:
+# Patch the ingress-nginx deployment to allow it to use a service with a
+# namePrefix. See https://github.com/kubernetes/ingress-nginx/issues/2599#issuecomment-601170289.
+- target:
+    kind: Deployment
+    name: ingress-nginx-controller
+  path: deploy-ingress-nginx.yaml

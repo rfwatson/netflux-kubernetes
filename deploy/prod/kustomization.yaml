@@ -4,6 +4,35 @@ resources:
 - svc-db.yaml
 - svc-netflux.yaml
 
+helmCharts:
+- name: prometheus
+  version: "15.8.5"
+  repo: https://prometheus-community.github.io/helm-charts
+  includeCRDs: true
+  releaseName: prometheus
+  valuesInline:
+    server:
+      extraSecretMounts:
+      - name: prometheus-credentials
+        mountPath: /etc/secrets
+        secretName: prometheus-credentials
+        readOnly: true
+    extraScrapeConfigs: |-
+      - job_name: "node"
+        scheme: https
+        basic_auth:
+          username: metrics
+          password_file: /etc/secrets/exporter-password
+        tls_config:
+          insecure_skip_verify: true
+        static_configs:
+          - targets: ["prod-db:9100", "prod-netflux:9100"]
+
+secretGenerator:
+- name: prometheus-credentials
+  files:
+    - secrets/exporter-password
+
 patchesJson6902:
 # Patch the ingress-nginx deployment to allow it to use a service with a
 # namePrefix. See https://github.com/kubernetes/ingress-nginx/issues/2599#issuecomment-601170289.

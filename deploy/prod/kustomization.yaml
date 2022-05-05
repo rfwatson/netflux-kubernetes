@@ -1,6 +1,9 @@
 namePrefix: prod-
 resources:
 - ../base
+- svc-db.yaml
+- svc-netflux.yaml
+
 patchesJson6902:
 # Patch the ingress-nginx deployment to allow it to use a service with a
 # namePrefix. See https://github.com/kubernetes/ingress-nginx/issues/2599#issuecomment-601170289.

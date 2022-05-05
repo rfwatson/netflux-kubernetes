@@ -2,6 +2,20 @@
 namePrefix: dev-
 resources:
 - ../base
+- svc-db.yaml
+
+helmCharts:
+- name: postgresql
+  version: "11.1.25"
+  repo: https://charts.bitnami.com/bitnami
+  releaseName: postgresql
+  valuesInline:
+    metrics:
+      enabled: true
+    auth:
+      database: default
+      postgresPassword: testme
+
 patchesJson6902:
 # Patch the ingress-nginx deployment to allow it to use a service with a
 # namePrefix. See https://github.com/kubernetes/ingress-nginx/issues/2599#issuecomment-601170289.

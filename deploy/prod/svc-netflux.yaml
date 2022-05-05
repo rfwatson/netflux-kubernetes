@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: netflux
+spec:
+  clusterIP: None
+  ports:
+  - name: metrics
+    port: 9100
+    protocol: TCP
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: netflux
+subsets:
+  - addresses:
+      - ip: ${NETFLUX_PRIVATE_IP}
+    ports:
+      - port: 9100
+        name: metrics
+        protocol: TCP

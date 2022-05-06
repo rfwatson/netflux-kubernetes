@@ -4,29 +4,11 @@ resources:
 - ../base
 - svc-db.yaml
 
-helmCharts:
-# Currently, Kustomize does not support inflating Helm charts with multiple values files.
-# See: https://github.com/kubernetes-sigs/kustomize/issues/4219
-# This is required by the Prometheus chart which builds a long stringified
-# prometheus.yml config based on these values. This config file is difficult to
-# patch later. For now, the best solution is to define the helm chart in full
-# in both dev and prod stages.
-- name: prometheus
-  version: "15.8.5"
-  repo: https://prometheus-community.github.io/helm-charts
-  includeCRDs: true
-  releaseName: prometheus
-  valuesInline: {}
-- name: postgresql
-  version: "11.1.25"
-  repo: https://charts.bitnami.com/bitnami
-  releaseName: postgresql
-  valuesInline:
-    metrics:
-      enabled: true
-    auth:
-      database: default
-      postgresPassword: testme
+configMapGenerator:
+- name: prometheus-server
+  behavior: merge
+  files:
+  - prometheus.yml=prometheus.yaml
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

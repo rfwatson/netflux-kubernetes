@@ -15,3 +15,9 @@ helmCharts:
           annotations:
             prometheus.io/scrape: "true"
             prometheus.io/port: "10254"
+- name: prometheus
+  version: "15.8.5"
+  repo: https://prometheus-community.github.io/helm-charts
+  includeCRDs: true
+  releaseName: prometheus
+  valuesInline: {}

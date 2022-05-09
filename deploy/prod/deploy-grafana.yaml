@@ -1,0 +1,36 @@
+---
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_TYPE
+    value: postgres
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_HOST
+    value: prod-db
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_PORT
+    value: "5432"
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_USER
+    value: grafana
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_PASSWORD
+    value: ${GRAFANA_POSTGRESQL_PASSWORD}
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_NAME
+    value: grafana
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_SSL_MODE
+    value: require

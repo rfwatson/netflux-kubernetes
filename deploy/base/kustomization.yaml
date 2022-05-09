@@ -21,3 +21,56 @@ helmCharts:
   includeCRDs: true
   releaseName: prometheus
   valuesInline: {}
+- name: grafana
+  repo: https://grafana.github.io/helm-charts
+  version: "6.29.1"
+  releaseName: grafana
+  valuesInline:
+    admin:
+      existingSecret: grafana-credentials
+    # Seems to launch a failing container, disabling for now:
+    testFramework:
+      enabled: false
+    persistence:
+      enabled: false
+    # Note: datasources are patched in overlays to correct the URLs.
+    # Including here is required for the helm chart to mount the configmap
+    # volume.
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+        - isDefault: true
+          name: Prometheus
+          type: prometheus
+          url: http://prometheus-server
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+    dashboards:
+      default:
+        postgresql:
+          gnetId: 9628
+          revision: 7
+          datasource: Prometheus
+        node:
+          gnetId: 1860
+          revision: 26
+          datasource: Prometheus
+        nginx-ingress:
+          gnetId: 9614
+          revision: 1
+          datasource: Prometheus
+        kubernetes-apiserver:
+          gnetId: 12006
+          revision: 1
+          datasource: Prometheus

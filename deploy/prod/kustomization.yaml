@@ -9,13 +9,29 @@ configMapGenerator:
   behavior: merge
   files:
   - prometheus.yml=prometheus.yaml
+- name: grafana
+  behavior: merge
+  files:
+  - grafana.ini
+  - datasources.yaml=grafana-datasources.yaml
 
 secretGenerator:
 - name: prometheus-credentials
   files:
   - secrets/exporter-password
+- name: grafana-credentials
+  files:
+  - admin-user=secrets/grafana-admin-user
+  - admin-password=secrets/grafana-admin-password
 
 patches:
+# Patch the ingress-nginx deployment to allow it to use a service with a
+# namePrefix. See https://github.com/kubernetes/ingress-nginx/issues/2599#issuecomment-601170289.
+- target:
+    kind: Deployment
+    name: ingress-nginx-controller
+  path: deploy-ingress-nginx.yaml
+
 # Patch prometheus-server pod to mount the secrets volume.
 - target:
     kind: Deployment
@@ -25,7 +41,6 @@ patches:
       path: /spec/template/spec/volumes/-
       value:
         secret:
-          defaultMode: 420
           secretName: prod-prometheus-credentials
         name: secrets-volume
     - op: add
@@ -35,9 +50,8 @@ patches:
         name: secrets-volume
         readOnly: true
 
-# Patch the ingress-nginx deployment to allow it to use a service with a
-# namePrefix. See https://github.com/kubernetes/ingress-nginx/issues/2599#issuecomment-601170289.
+# Patch Grafana deployment to inject PostgreSQL credentials:
 - target:
     kind: Deployment
-    name: ingress-nginx-controller
-  path: deploy-ingress-nginx.yaml
+    name: grafana
+  path: deploy-grafana.yaml

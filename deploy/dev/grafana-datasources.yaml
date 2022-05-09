@@ -1,0 +1,6 @@
+apiVersion: 1
+datasources:
+- isDefault: true
+  name: Prometheus
+  type: prometheus
+  url: http://dev-prometheus-server

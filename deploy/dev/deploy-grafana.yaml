@@ -1,0 +1,31 @@
+---
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_TYPE
+    value: postgres
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_HOST
+    value: dev-db
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_PORT
+    value: "5432"
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_USER
+    value: postgres
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_PASSWORD
+    value: testme
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: GF_DATABASE_NAME
+    value: grafana

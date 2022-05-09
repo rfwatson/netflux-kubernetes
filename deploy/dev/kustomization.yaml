@@ -4,6 +4,18 @@ resources:
 - ../base
 - svc-db.yaml
 
+helmCharts:
+- name: postgresql
+  version: "11.1.28"
+  repo: https://charts.bitnami.com/bitnami
+  releaseName: postgresql
+  valuesInline:
+    metrics:
+      enabled: true
+    auth:
+      postgresPassword: testme
+      database: default
+
 configMapGenerator:
 - name: prometheus-server
   behavior: merge

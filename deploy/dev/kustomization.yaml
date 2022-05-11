@@ -29,6 +29,9 @@ configMapGenerator:
 - name: invidious-config
   files:
   - config.yml=invidious-config.yaml
+- name: element-config
+  files:
+  - config.json=element-config.json
 
 secretGenerator:
 - name: grafana-credentials

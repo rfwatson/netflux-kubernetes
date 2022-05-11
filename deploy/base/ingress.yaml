@@ -26,3 +26,13 @@ spec:
             name: invidious
             port:
               name: http
+  - host: element
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: element
+            port:
+              name: http

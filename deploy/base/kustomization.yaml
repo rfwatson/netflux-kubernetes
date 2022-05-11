@@ -74,3 +74,6 @@ resources:
 
 - deploy-invidious.yaml
 - svc-invidious.yaml
+
+- deploy-element.yaml
+- svc-element.yaml

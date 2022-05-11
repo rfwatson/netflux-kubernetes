@@ -10,6 +10,7 @@ load-prod-env:
 	$(eval include prod/secrets/env)
 	$(eval export)
 
-# Usage: make inflate name=prometheus chart=prometheus-community/prometheus
+# Usage: make inflate name=prometheus chart=prometheus-community/prometheus [base=dev]
+base=base
 inflate:
-	@bin/helm-chart-inflate.sh $(name) $(chart)
+	@bin/helm-chart-inflate.sh $(name) $(chart) $(base)

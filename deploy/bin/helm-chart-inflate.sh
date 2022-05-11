@@ -6,19 +6,21 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-name=$1
-chart=$2
+name="$1"
+chart="$2"
+base="$3"
 
-rm -rf base/inflated/$name
+mkdir -p "$base/inflated"
+rm -rf "$base/inflated/$name"
 
-valuesfile="base/values/$name.yaml"
+valuesfile="$base/values/$name.yaml"
 if [ -f $valuesfile ]; then
   echo "Inflating template with values file: $valuesfile ..."
-  helm template $name $chart --output-dir base/inflated -f $valuesfile 
+  helm template $name $chart --output-dir $base/inflated -f $valuesfile 
 else
   echo "Inflating template with default values ..."
-  helm template $name $chart --output-dir base/inflated
+  helm template $name $chart --output-dir $base/inflated
 fi
 
-echo "YAML entries for base/kustomzation.yaml:"
-find base/inflated/$name -iname '*.yaml' | xargs realpath --relative-to base | sed 's/^/- /'
+echo "YAML entries for $base/kustomzation.yaml:"
+find $base/inflated/$name -iname '*.yaml' | xargs realpath --relative-to $base | sed 's/^/- /'

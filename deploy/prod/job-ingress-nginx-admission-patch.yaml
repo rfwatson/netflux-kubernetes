@@ -2,3 +2,6 @@
 - op: replace
   path: /spec/template/spec/containers/0/args/1
   value: "--webhook-name=prod-ingress-nginx-admission"
+- op: replace
+  path: /spec/template/spec/containers/0/args/4
+  value: "--secret-name=prod-ingress-nginx-admission"

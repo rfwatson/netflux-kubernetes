@@ -46,6 +46,12 @@ patches:
     name: ingress-nginx-admission-patch
   path: job-ingress-nginx-admission-patch.yaml
 
+# Patch the ingress resource with stage-specific hostnames:
+- target:
+    kind: Ingress
+    name: ingress
+  path: ingress.yaml
+
 # Patch prometheus-server pod to mount the secrets volume.
 - target:
     kind: Deployment

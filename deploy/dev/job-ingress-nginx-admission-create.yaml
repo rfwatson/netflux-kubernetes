@@ -2,3 +2,6 @@
 - op: replace
   path: /spec/template/spec/containers/0/args/1
   value: "--host=dev-ingress-nginx-controller-admission,dev-ingress-nginx-controller-admission.$(POD_NAMESPACE).svc"
+- op: replace
+  path: /spec/template/spec/containers/0/args/3
+  value: "--secret-name=dev-ingress-nginx-admission"

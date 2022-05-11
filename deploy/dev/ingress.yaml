@@ -1,0 +1,15 @@
+- op: replace
+  path: /spec/ingressClassName
+  value: dev-nginx
+- op: add
+  path: /metadata/annotations
+  value:
+    cert-manager.io/cluster-issuer: cluster-issuer-selfsigned
+- op: replace
+  path: /spec/tls
+  value:
+    - hosts:
+      - grafana.local
+- op: replace
+  path: /spec/rules/0/host
+  value: grafana.local

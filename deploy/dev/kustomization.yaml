@@ -55,6 +55,12 @@ patches:
     name: ingress-nginx-admission-patch
   path: job-ingress-nginx-admission-patch.yaml
 
+# Patch the ingress resource with stage-specific hostnames:
+- target:
+    kind: Ingress
+    name: ingress
+  path: ingress.yaml
+
 # Patch Grafana deployment to inject PostgreSQL credentials:
 - target:
     kind: Deployment

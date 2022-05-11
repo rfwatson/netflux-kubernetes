@@ -5,3 +5,6 @@
 - op: replace
   path: /spec/template/spec/containers/0/args/5
   value: "--configmap=$(POD_NAMESPACE)/dev-ingress-nginx-controller"
+- op: replace
+  path: /spec/template/spec/volumes/0/secret/secretName
+  value: dev-ingress-nginx-admission

@@ -1,0 +1,16 @@
+- op: replace
+  path: /spec/ingressClassName
+  value: prod-nginx
+- op: add
+  path: /metadata/annotations
+  value:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+- op: replace
+  path: /spec/tls
+  value:
+    - hosts:
+      - grafana.netflux.io
+      secretName: prod-ingress-tls
+- op: replace
+  path: /spec/rules/0/host
+  value: grafana.netflux.io

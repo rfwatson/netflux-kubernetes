@@ -59,3 +59,5 @@ resources:
 - inflated/grafana/templates/podsecuritypolicy.yaml
 - inflated/grafana/templates/configmap.yaml
 - inflated/grafana/templates/clusterrolebinding.yaml
+
+- ingress.yaml

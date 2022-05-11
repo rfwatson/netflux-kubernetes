@@ -86,6 +86,13 @@ spec:
         - mountPath: /invidious/config/config.yml
           subPath: config.yml
           name: config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
         livenessProbe:
           failureThreshold: 10
           httpGet:

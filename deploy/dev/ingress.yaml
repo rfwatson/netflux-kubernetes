@@ -13,3 +13,6 @@
 - op: replace
   path: /spec/rules/0/host
   value: grafana.local
+- op: replace
+  path: /spec/rules/1/host
+  value: invidious.local

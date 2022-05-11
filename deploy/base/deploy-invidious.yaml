@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invidious
+  labels:
+    app.kubernetes.io/name: invidious
+    app.kubernetes.io/instance: invidious
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: invidious
+      app.kubernetes.io/instance: invidious
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: invidious
+        app.kubernetes.io/instance: invidious
+    spec:
+      initContainers:
+      - image: alpine/git:latest
+        imagePullPolicy: IfNotPresent
+        name: init-invidious-repo
+        volumeMounts:
+        - mountPath: /repo
+          name: repo
+        command: ["git", "clone", "--depth", "1", "https://github.com/iv-org/invidious.git", "/repo"]
+      - image: jbergknoff/postgresql-client:latest
+        imagePullPolicy: IfNotPresent
+        name: init-invidious-db
+        volumeMounts:
+        - mountPath: /repo
+          name: repo
+        env:
+        - name: PGHOST
+          valueFrom:
+            secretKeyRef:
+              name: invidious-credentials
+              key: database-host
+              optional: false
+        - name: PGPORT
+          valueFrom:
+            secretKeyRef:
+              name: invidious-credentials
+              key: database-port
+              optional: false
+        # See init-invidious-db.sh:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: invidious-credentials
+              key: database-name
+              optional: false
+        # See init-invidious-db.sh:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: invidious-credentials
+              key: database-user
+              optional: false
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: invidious-credentials
+              key: database-password
+              optional: false
+        workingDir: /repo
+        command: ["sh", "/repo/docker/init-invidious-db.sh"]
+      containers:
+      - image: quay.io/invidious/invidious:latest
+        imagePullPolicy: IfNotPresent
+        name: invidious
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 3000
+        env:
+        - name: INVIDIOUS_CONFIG_FILE
+          value: /invidious/config/config.yml
+        - name: INVIDIOUS_DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: invidious-credentials
+              key: database-url
+              optional: false
+        volumeMounts:
+        - mountPath: /invidious/config/config.yml
+          subPath: config.yml
+          name: config
+        livenessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /api/v1/comments/jNQXAC9IVRw
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+      volumes:
+      - name: repo
+        emptyDir: {}
+      - name: config
+        configMap:
+          name: invidious-config

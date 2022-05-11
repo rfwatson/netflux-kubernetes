@@ -26,12 +26,24 @@ configMapGenerator:
   files:
   - grafana.ini
   - datasources.yaml=grafana-datasources.yaml
+- name: invidious-config
+  files:
+  - config.yml=invidious-config.yaml
 
 secretGenerator:
 - name: grafana-credentials
   literals:
   - admin-user=rob
   - admin-password=testme
+- name: invidious-credentials
+  literals:
+  - database-url=postgresql://kemal:testme@dev-db:5432/invidious
+  # Individual keys required by init-invidious-db:
+  - database-host=dev-db
+  - database-port=5432
+  - database-name=invidious
+  - database-user=kemal
+  - database-password=testme
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

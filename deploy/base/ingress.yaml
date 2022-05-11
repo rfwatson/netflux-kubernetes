@@ -16,3 +16,13 @@ spec:
             name: grafana
             port:
               name: service
+  - host: invidious
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: invidious
+            port:
+              name: http

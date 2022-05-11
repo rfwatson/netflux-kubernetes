@@ -10,7 +10,11 @@
   value:
     - hosts:
       - grafana.netflux.io
+      - tube.netflux.io
       secretName: prod-ingress-tls
 - op: replace
   path: /spec/rules/0/host
   value: grafana.netflux.io
+- op: replace
+  path: /spec/rules/1/host
+  value: tube.netflux.io

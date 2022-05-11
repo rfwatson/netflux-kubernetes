@@ -1,0 +1,8 @@
+domain: tube.netflux.io
+channel_threads: 2
+feed_threads: 2
+registration_enabled: false
+default_user_preferences:
+  dark_mode: true
+popular_enabled: false
+https_only: true

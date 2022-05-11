@@ -9,3 +9,7 @@ The basic auth password required to access node-exporter endpoints. See ansible-
 ### grafana-admin-user, grafana-admin-password
 
 The credentials used to create the Grafana admin user. See 1password.
+
+### invidious-database-url, invidious-database-password
+
+The credentials for the invidious database. See ansible-vault.

@@ -61,3 +61,6 @@ resources:
 - inflated/grafana/templates/clusterrolebinding.yaml
 
 - ingress.yaml
+
+- deploy-invidious.yaml
+- svc-invidious.yaml

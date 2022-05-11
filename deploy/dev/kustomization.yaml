@@ -46,6 +46,11 @@ secretGenerator:
   - database-password=testme
 
 patches:
+# Patch the metrics-server to not require TLS in dev cluster.
+- target:
+    kind: Deployment
+    name: metrics-server
+  path: deploy-metrics-server.yaml
 # Patch the ingress-nginx deployment to allow it to use a service with a
 # namePrefix. See https://github.com/kubernetes/ingress-nginx/issues/2599#issuecomment-601170289.
 - target:

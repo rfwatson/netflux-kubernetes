@@ -12,7 +12,4 @@ load-prod-env:
 
 # Usage: make inflate name=prometheus chart=prometheus-community/prometheus
 inflate:
-	@rm -rf -- base/inflated/$(name)
-	@helm template $(name) $(chart) --output-dir base/inflated
-	@echo "YAML files for kustomzation.yaml:"
-	@find base/inflated/$(name) -iname '*.yaml' -exec realpath --relative-to base {} \;
+	@bin/helm-chart-inflate.sh $(name) $(chart)

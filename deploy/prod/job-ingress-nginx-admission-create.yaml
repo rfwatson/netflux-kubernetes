@@ -1,0 +1,4 @@
+---
+- op: replace
+  path: /spec/template/spec/containers/0/args/1
+  value: "--host=prod-ingress-nginx-controller-admission,prod-ingress-nginx-controller-admission.$(POD_NAMESPACE).svc"

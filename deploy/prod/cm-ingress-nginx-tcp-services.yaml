@@ -1,0 +1,8 @@
+# configMapGenerator does not accept integer keys in the current version of
+# Kustomize. See: https://github.com/kubernetes-sigs/kustomize/issues/3446
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-tcp-services
+data:
+  "22": "default/prod-gitea:ssh"

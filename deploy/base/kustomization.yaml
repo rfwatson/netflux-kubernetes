@@ -77,3 +77,24 @@ resources:
 
 - deploy-element.yaml
 - svc-element.yaml
+
+- statefulset-gitea.yaml
+- svc-gitea.yaml
+
+configMapGenerator:
+- name: gitea-scripts
+  files:
+  - init-directory-structure.sh=gitea-init-directory-structure.sh
+  - setup.sh=gitea-setup.sh
+
+patches:
+# Patch the ingress-nginx service to expose port 22 for Gitea SSH access.
+- target:
+    kind: Service
+    name: ingress-nginx-controller
+  path: svc-ingress-nginx.yaml
+
+- target:
+    kind: Deployment
+    name: ingress-nginx-controller
+  path: deploy-ingress-nginx.yaml

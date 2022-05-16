@@ -1,0 +1,164 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gitea
+  labels:
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/instance: gitea
+spec:
+  serviceName: gitea
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gitea
+      app.kubernetes.io/instance: gitea
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gitea
+        app.kubernetes.io/instance: gitea
+      annotations:
+        prometheus.io/port: "3000"
+        prometheus.io/scrape: "true"
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      initContainers:
+      - name: init-gitea
+        image: gitea/gitea:1.16.7-rootless
+        imagePullPolicy: IfNotPresent
+        command: ["/usr/sbin/init-directory-structure.sh"]
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_CUSTOM
+          value: /data/gitea/custom
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        - name: TMPDIR
+          value: /tmp/gitea
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /usr/sbin/init-directory-structure.sh
+          subPath: init-directory-structure.sh
+          name: scripts
+      - name: setup-gitea
+        image: gitea/gitea:1.16.7-rootless
+        imagePullPolicy: IfNotPresent
+        command: ["/usr/sbin/setup.sh"]
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_CUSTOM
+          value: /data/gitea/custom
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        - name: GITEA_ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: gitea-config
+              key: admin-username
+        - name: GITEA_ADMIN_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: gitea-config
+              key: admin-email
+        - name: GITEA_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: gitea-config
+              key: admin-password
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data/gitea/conf/app.ini
+          subPath: config.ini
+          name: config
+        - mountPath: /usr/sbin/setup.sh
+          subPath: setup.sh
+          name: scripts
+        securityContext:
+          privileged: false
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+      containers:
+      - name: gitea
+        image: gitea/gitea:1.16.7-rootless
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 3000
+        - name: ssh
+          protocol: TCP
+          containerPort: 2222
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_CUSTOM
+          value: /data/gitea/custom
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        - name: TMPDIR
+          value: /tmp/gitea
+        volumeMounts:
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data/gitea/conf/app.ini
+          subPath: config.ini
+          name: config
+        - mountPath: /data
+          name: data
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 30
+          successThreshold: 1
+          failureThreshold: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+        securityContext:
+          privileged: false
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: temp
+        emptyDir: {}
+      - name: config
+        secret:
+          secretName: gitea-config
+      - name: scripts
+        configMap:
+          name: gitea-scripts
+          defaultMode: 0700
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi

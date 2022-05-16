@@ -3,6 +3,7 @@ resources:
 - ../base
 - svc-db.yaml
 - svc-netflux.yaml
+- cm-ingress-nginx-tcp-services.yaml
 
 configMapGenerator:
 - name: prometheus-server
@@ -39,6 +40,12 @@ secretGenerator:
   files:
   - database-url=secrets/invidious-database-url
   - database-password=secrets/invidious-database-password
+- name: gitea-config
+  files:
+  - admin-username=secrets/gitea-admin-username
+  - admin-password=secrets/gitea-admin-password
+  - admin-email=secrets/gitea-admin-email
+  - config.ini=secrets/gitea-config.ini
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

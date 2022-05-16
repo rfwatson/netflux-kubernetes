@@ -3,6 +3,7 @@ namePrefix: dev-
 resources:
 - ../base
 - svc-db.yaml
+- cm-ingress-nginx-tcp-services.yaml
 
 helmCharts:
 - name: postgresql
@@ -47,6 +48,13 @@ secretGenerator:
   - database-name=invidious
   - database-user=kemal
   - database-password=testme
+- name: gitea-config
+  literals:
+  - admin-username=rob
+  - admin-password=testme
+  - admin-email=mail@localhost
+  files:
+  - config.ini=gitea-config.ini
 
 patches:
 # Patch the metrics-server to not require TLS in dev cluster.

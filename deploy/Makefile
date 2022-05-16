@@ -4,7 +4,8 @@ dev:
 	@kubectl kustomize --enable-helm dev
 
 prod: load-prod-env
-	@kubectl kustomize --enable-helm prod | envsubst
+	# go install https://git.netflux.io/rob/envfilesubst@latest
+	@kubectl kustomize --enable-helm prod | envfilesubst -f prod/secrets/env
 
 load-prod-env:
 	$(eval include prod/secrets/env)

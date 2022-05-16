@@ -36,3 +36,13 @@ spec:
             name: element
             port:
               name: http
+  - host: gitea
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: gitea
+            port:
+              name: http

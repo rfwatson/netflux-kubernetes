@@ -1,0 +1,9 @@
+---
+# Force the ingress-nginx service to expose port 22. This allows traffic to be
+# routed to the Gitea SSH service.
+- op: add
+  path: /spec/ports/-
+  value:
+    nodePort: 32050
+    port: 22
+    name: ssh

@@ -1,0 +1,8 @@
+# Add port 22 (enabled via the --tcp-services-configmap argument in the
+# overlays) to the Pod's port list for informational reasons:
+- op: add
+  path: /spec/template/spec/containers/0/ports/-
+  value:
+    containerPort: 22
+    name: ssh
+    protocol: TCP

@@ -12,7 +12,7 @@ spec:
   ingressClassName: nginx
   # NOTE: overlays depend on the order of rule entries.
   rules:
-  - host: grafana
+  - host: grafana.internal
     http:
       paths:
       - pathType: Prefix
@@ -22,7 +22,7 @@ spec:
             name: grafana
             port:
               name: service
-  - host: invidious
+  - host: invidious.internal
     http:
       paths:
       - pathType: Prefix
@@ -32,7 +32,7 @@ spec:
             name: invidious
             port:
               name: http
-  - host: element
+  - host: element.internal
     http:
       paths:
       - pathType: Prefix
@@ -42,7 +42,7 @@ spec:
             name: element
             port:
               name: http
-  - host: gitea
+  - host: gitea.internal
     http:
       paths:
       - pathType: Prefix

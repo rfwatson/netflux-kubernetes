@@ -93,6 +93,10 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
+        lifecycle:
+          preStop:
+            exec:
+              command: ["kill", "-INT", "1"]
         livenessProbe:
           failureThreshold: 10
           httpGet:

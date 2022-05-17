@@ -2,9 +2,9 @@
   path: /spec/ingressClassName
   value: prod-nginx
 - op: add
-  path: /metadata/annotations
-  value:
-    cert-manager.io/cluster-issuer: letsencrypt-production
+  # https://github.com/kubernetes-sigs/kustomize/issues/1439#issuecomment-520614831
+  path: /metadata/annotations/cert-manager.io~1cluster-issuer
+  value: letsencrypt-production
 - op: replace
   path: /spec/tls
   value:

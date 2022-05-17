@@ -14,7 +14,7 @@ helmCharts:
     metrics:
       enabled: true
     auth:
-      postgresPassword: testme
+      postgresPassword: postgres
       database: default
 
 configMapGenerator:
@@ -41,13 +41,13 @@ secretGenerator:
   - admin-password=testme
 - name: invidious-credentials
   literals:
-  - database-url=postgresql://kemal:testme@dev-db:5432/invidious
+  - database-url=postgresql://kemal:kemal@dev-db:5432/invidious
   # Individual keys required by init-invidious-db:
   - database-host=dev-db
   - database-port=5432
   - database-name=invidious
   - database-user=kemal
-  - database-password=testme
+  - database-password=kemal
 - name: gitea-config
   literals:
   - admin-username=rob

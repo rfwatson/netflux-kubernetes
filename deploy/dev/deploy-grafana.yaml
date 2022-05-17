@@ -23,7 +23,7 @@
   path: /spec/template/spec/containers/0/env/-
   value:
     name: GF_DATABASE_PASSWORD
-    value: testme
+    value: postgres
 - op: add
   path: /spec/template/spec/containers/0/env/-
   value:

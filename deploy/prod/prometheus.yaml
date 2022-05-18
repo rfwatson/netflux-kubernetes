@@ -293,7 +293,7 @@ scrape_configs:
   tls_config:
     insecure_skip_verify: true
   static_configs:
-    - targets: ["prod-db:9100", "prod-netflux:9100"]
+    - targets: ["prod-db:9100", "prod-db:9187", "prod-netflux:9100"]
 alerting:
   alertmanagers:
   - kubernetes_sd_configs:

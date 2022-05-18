@@ -21,6 +21,14 @@ configMapGenerator:
 - name: element-config
   files:
   - config.json=element-config.json
+- name: drone-config
+  literals:
+  - gitea-server=https://git.netflux.io
+  - server-host=drone.netflux.io
+  - server-proto=https
+  - rpc-host=drone.netflux.io
+  - rpc-proto=https
+  - logs-debug=false
 
 secretGenerator:
 - name: prometheus-credentials
@@ -46,6 +54,12 @@ secretGenerator:
   - admin-password=secrets/gitea-admin-password
   - admin-email=secrets/gitea-admin-email
   - config.ini=secrets/gitea-config.ini
+- name: drone-credentials
+  files:
+  - database-url=secrets/drone-database-url
+  - gitea-client-id=secrets/drone-gitea-client-id
+  - gitea-client-secret=secrets/drone-gitea-client-secret
+  - rpc-secret=secrets/drone-rpc-secret
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

@@ -42,6 +42,8 @@ spec:
             name: element
             port:
               name: http
+  # See the comment in the drone-config configMapGenerator in
+  # dev/kustomization.yaml:
   - host: gitea.internal
     http:
       paths:
@@ -50,5 +52,15 @@ spec:
         backend:
           service:
             name: gitea
+            port:
+              name: http
+  - host: drone.internal
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: drone
             port:
               name: http

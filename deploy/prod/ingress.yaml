@@ -13,6 +13,7 @@
       - tube.netflux.io
       - element.netflux.io
       - git.netflux.io
+      - drone.netflux.io
       secretName: prod-ingress-tls
 - op: replace
   path: /spec/rules/0/host
@@ -26,3 +27,6 @@
 - op: replace
   path: /spec/rules/3/host
   value: git.netflux.io
+- op: replace
+  path: /spec/rules/4/host
+  value: drone.netflux.io

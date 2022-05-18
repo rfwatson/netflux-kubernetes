@@ -33,6 +33,16 @@ configMapGenerator:
 - name: element-config
   files:
   - config.json=element-config.json
+- name: drone-config
+  literals:
+  # For Gitea/drone integration to work in dev, Gitea must be served from the
+  # external hostname `dev-gitea` so it matches with the internal DNS.
+  - gitea-server=http://dev-gitea
+  - server-host=dev-drone
+  - server-proto=http
+  - rpc-host=dev-drone
+  - rpc-proto=http
+  - logs-debug=false
 
 secretGenerator:
 - name: grafana-credentials
@@ -55,6 +65,12 @@ secretGenerator:
   - admin-email=mail@localhost
   files:
   - config.ini=gitea-config.ini
+- name: drone-credentials
+  literals:
+  - database-url=postgres://postgres:postgres@dev-db:5432/drone?sslmode=disable
+  - gitea-client-id=55847c4a-c80e-4e77-ab36-c6d102273115
+  - gitea-client-secret=IU4cb59RNNLuI9PRkUbldcEQ5wYPEZMBK5s6p7vTdVfe
+  - rpc-secret=f5ec349109bb9bbdf00e4394afd28754
 
 patches:
 # Patch the metrics-server to not require TLS in dev cluster.

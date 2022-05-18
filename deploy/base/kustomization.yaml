@@ -81,6 +81,12 @@ resources:
 - statefulset-gitea.yaml
 - svc-gitea.yaml
 
+- deploy-drone.yaml
+- svc-drone.yaml
+- deploy-drone-runner.yaml
+- role-drone-runner.yaml
+- rolebinding-drone-runner.yaml
+
 configMapGenerator:
 - name: gitea-scripts
   files:

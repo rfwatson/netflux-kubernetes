@@ -21,15 +21,15 @@ spec:
         imagePullPolicy: IfNotPresent
         name: init-invidious-repo
         volumeMounts:
-        - mountPath: /repo
-          name: repo
-        command: ["git", "clone", "--depth", "1", "https://github.com/iv-org/invidious.git", "/repo"]
+        - mountPath: /data
+          name: data
+        command: ["git", "clone", "--depth", "1", "https://github.com/iv-org/invidious.git", "/data/repo"]
       - image: jbergknoff/postgresql-client:latest
         imagePullPolicy: IfNotPresent
         name: init-invidious-db
         volumeMounts:
-        - mountPath: /repo
-          name: repo
+        - mountPath: /data
+          name: data
         env:
         - name: PGHOST
           valueFrom:
@@ -63,8 +63,8 @@ spec:
               name: invidious-credentials
               key: database-password
               optional: false
-        workingDir: /repo
-        command: ["sh", "/repo/docker/init-invidious-db.sh"]
+        workingDir: /data/repo
+        command: ["sh", "docker/init-invidious-db.sh"]
       containers:
       - image: quay.io/invidious/invidious:latest
         imagePullPolicy: IfNotPresent
@@ -108,7 +108,7 @@ spec:
           successThreshold: 1
           timeoutSeconds: 10
       volumes:
-      - name: repo
+      - name: data
         emptyDir: {}
       - name: config
         configMap:

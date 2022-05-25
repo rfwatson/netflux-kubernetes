@@ -71,6 +71,14 @@ secretGenerator:
   - gitea-client-id=55847c4a-c80e-4e77-ab36-c6d102273115
   - gitea-client-secret=IU4cb59RNNLuI9PRkUbldcEQ5wYPEZMBK5s6p7vTdVfe
   - rpc-secret=f5ec349109bb9bbdf00e4394afd28754
+- name: elon-staging-credentials
+  literals:
+  - session-key=secret
+  - twitter-client-id=foo
+  - twitter-client-secret=bar
+  - twitter-callback-url=http://localhost:8000/callback
+  - twitter-bearer-token=secret
+  - database-url=postgres://postgres:postgres@dev-db:5432/elon_staging?sslmode=disable
 
 patches:
 # Patch the metrics-server to not require TLS in dev cluster.

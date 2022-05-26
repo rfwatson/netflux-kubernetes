@@ -87,9 +87,6 @@ resources:
 - role-drone-runner.yaml
 - rolebinding-drone-runner.yaml
 
-- deploy-elon-staging.yaml
-- svc-elon-staging.yaml
-
 configMapGenerator:
 - name: gitea-scripts
   files:

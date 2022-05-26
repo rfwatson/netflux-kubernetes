@@ -64,13 +64,3 @@ spec:
             name: drone
             port:
               name: http
-  - host: elon-staging.internal
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: elon-staging
-            port:
-              name: http

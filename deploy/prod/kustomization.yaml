@@ -60,14 +60,6 @@ secretGenerator:
   - gitea-client-id=secrets/drone-gitea-client-id
   - gitea-client-secret=secrets/drone-gitea-client-secret
   - rpc-secret=secrets/drone-rpc-secret
-- name: elon-staging-credentials
-  files:
-  - session-key=secrets/elon-staging-session-key
-  - twitter-client-id=secrets/elon-staging-twitter-client-id
-  - twitter-client-secret=secrets/elon-staging-twitter-client-secret
-  - twitter-callback-url=secrets/elon-staging-twitter-callback-url
-  - twitter-bearer-token=secrets/elon-staging-twitter-bearer-token
-  - database-url=secrets/elon-staging-database-url
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

@@ -64,3 +64,13 @@ spec:
             name: drone
             port:
               name: http
+  - host: synapse.internal
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: synapse
+            port:
+              name: http

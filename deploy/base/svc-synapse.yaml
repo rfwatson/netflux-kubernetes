@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: synapse
+    app.kubernetes.io/instance: synapse
+    app.kubernetes.io/name: synapse
+  name: synapse
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8008
+  selector:
+    app: synapse
+    component: web
+  type: ClusterIP

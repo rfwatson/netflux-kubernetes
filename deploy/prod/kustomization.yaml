@@ -60,6 +60,11 @@ secretGenerator:
   - gitea-client-id=secrets/drone-gitea-client-id
   - gitea-client-secret=secrets/drone-gitea-client-secret
   - rpc-secret=secrets/drone-rpc-secret
+- name: synapse-config
+  files:
+  - homeserver.yaml=secrets/synapse-homeserver.yaml
+  - signing.key=secrets/synapse-signing.key
+  - log.config=secrets/synapse-log.config
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

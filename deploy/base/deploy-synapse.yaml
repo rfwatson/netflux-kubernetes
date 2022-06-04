@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synapse
+  labels:
+    app: synapse
+    component: web
+    app.kubernetes.io/name: synapse
+    app.kubernetes.io/instance: synapse
+spec:
+  selector:
+    matchLabels:
+      app: synapse
+      component: web
+  template:
+    metadata:
+      labels:
+        app: synapse
+        component: web
+        app.kubernetes.io/name: synapse
+        app.kubernetes.io/instance: synapse
+    spec:
+      securityContext:
+        fsGroup: 991
+        runAsUser: 991
+        runAsGroup: 991
+      containers:
+      - image: matrixdotorg/synapse:latest
+        imagePullPolicy: IfNotPresent
+        name: synapse
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 8008
+        env:
+        - name: SYNAPSE_CONFIG_DIR
+          value: /config
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /data
+          name: data
+        - mountPath: /config/homeserver.yaml
+          subPath: homeserver.yaml
+          name: config
+        - mountPath: /config/signing.key
+          subPath: signing.key
+          name: config
+        - mountPath: /config/log.config
+          subPath: log.config
+          name: config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8008
+            scheme: HTTP
+          failureThreshold: 5
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: data
+        persistentVolumeClaim:
+          claimName: synapse-data
+      - name: config
+        secret:
+          secretName: synapse-config
+          defaultMode: 0600

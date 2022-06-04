@@ -87,6 +87,10 @@ resources:
 - role-drone-runner.yaml
 - rolebinding-drone-runner.yaml
 
+- pvc-synapse.yaml
+- deploy-synapse.yaml
+- svc-synapse.yaml
+
 configMapGenerator:
 - name: gitea-scripts
   files:

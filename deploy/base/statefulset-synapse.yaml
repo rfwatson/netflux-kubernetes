@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: synapse
   labels:
@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/name: synapse
     app.kubernetes.io/instance: synapse
 spec:
+  serviceName: synapse
   selector:
     matchLabels:
       app: synapse
@@ -76,3 +77,12 @@ spec:
         secret:
           secretName: synapse-config
           defaultMode: 0600
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi

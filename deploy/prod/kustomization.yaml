@@ -65,6 +65,9 @@ secretGenerator:
   - homeserver.yaml=secrets/synapse-homeserver.yaml
   - signing.key=secrets/synapse-signing.key
   - log.config=secrets/synapse-log.config
+  options:
+    labels:
+      app: synapse
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

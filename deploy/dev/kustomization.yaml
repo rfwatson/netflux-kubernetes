@@ -76,6 +76,9 @@ secretGenerator:
   - homeserver.yaml=synapse-homeserver.yaml
   - signing.key=synapse-signing.key
   - log.config=synapse-log.config
+  options:
+    labels:
+      app: synapse
 
 patches:
 # Patch the metrics-server to not require TLS in dev cluster.

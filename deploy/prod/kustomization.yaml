@@ -18,9 +18,15 @@ configMapGenerator:
 - name: invidious-config
   files:
   - config.yml=invidious-config.yaml
+  options:
+    labels:
+      app: invidious
 - name: element-config
   files:
   - config.json=element-config.json
+  options:
+    labels:
+      app: element
 - name: drone-config
   literals:
   - gitea-server=https://git.netflux.io
@@ -29,7 +35,9 @@ configMapGenerator:
   - rpc-host=drone.netflux.io
   - rpc-proto=https
   - logs-debug=false
-
+  options:
+    labels:
+      app: drone
 secretGenerator:
 - name: prometheus-credentials
   files:
@@ -48,18 +56,27 @@ secretGenerator:
   files:
   - database-url=secrets/invidious-database-url
   - database-password=secrets/invidious-database-password
+  options:
+    labels:
+      app: invidious
 - name: gitea-config
   files:
   - admin-username=secrets/gitea-admin-username
   - admin-password=secrets/gitea-admin-password
   - admin-email=secrets/gitea-admin-email
   - config.ini=secrets/gitea-config.ini
+  options:
+    labels:
+      app: gitea
 - name: drone-credentials
   files:
   - database-url=secrets/drone-database-url
   - gitea-client-id=secrets/drone-gitea-client-id
   - gitea-client-secret=secrets/drone-gitea-client-secret
   - rpc-secret=secrets/drone-rpc-secret
+  options:
+    labels:
+      app: drone
 - name: synapse-config
   files:
   - homeserver.yaml=secrets/synapse-homeserver.yaml

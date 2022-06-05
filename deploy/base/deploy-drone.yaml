@@ -3,16 +3,20 @@ kind: Deployment
 metadata:
   name: drone
   labels:
+    app: drone
+    component: web
     app.kubernetes.io/name: drone
     app.kubernetes.io/instance: drone
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: drone
-      app.kubernetes.io/instance: drone
+      app: drone
+      component: web
   template:
     metadata:
       labels:
+        app: drone
+        component: web
         app.kubernetes.io/name: drone
         app.kubernetes.io/instance: drone
     spec:

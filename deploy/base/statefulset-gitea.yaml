@@ -3,17 +3,21 @@ kind: StatefulSet
 metadata:
   name: gitea
   labels:
+    app: gitea
+    component: web
     app.kubernetes.io/name: gitea
     app.kubernetes.io/instance: gitea
 spec:
   serviceName: gitea
   selector:
     matchLabels:
-      app.kubernetes.io/name: gitea
-      app.kubernetes.io/instance: gitea
+      app: gitea
+      component: web
   template:
     metadata:
       labels:
+        app: gitea
+        component: web
         app.kubernetes.io/name: gitea
         app.kubernetes.io/instance: gitea
       annotations:

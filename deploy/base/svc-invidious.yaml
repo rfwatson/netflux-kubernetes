@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    app: invidious
     app.kubernetes.io/instance: invidious
     app.kubernetes.io/name: invidious
   name: invidious

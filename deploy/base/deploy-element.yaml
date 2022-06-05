@@ -3,16 +3,20 @@ kind: Deployment
 metadata:
   name: element
   labels:
+    app: element
+    component: web
     app.kubernetes.io/name: element
     app.kubernetes.io/instance: element
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: element
-      app.kubernetes.io/instance: element
+      app: element
+      component: web
   template:
     metadata:
       labels:
+        app: element
+        component: web
         app.kubernetes.io/name: element
         app.kubernetes.io/instance: element
     spec:

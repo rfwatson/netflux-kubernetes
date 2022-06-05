@@ -30,9 +30,15 @@ configMapGenerator:
 - name: invidious-config
   files:
   - config.yml=invidious-config.yaml
+  options:
+    labels:
+      app: invidious
 - name: element-config
   files:
   - config.json=element-config.json
+  options:
+    labels:
+      app: element
 - name: drone-config
   literals:
   # For Gitea/drone integration to work in dev, Gitea must be served from the
@@ -43,7 +49,9 @@ configMapGenerator:
   - rpc-host=dev-drone
   - rpc-proto=http
   - logs-debug=false
-
+  options:
+    labels:
+      app: drone
 secretGenerator:
 - name: grafana-credentials
   literals:
@@ -58,6 +66,9 @@ secretGenerator:
   - database-name=invidious
   - database-user=kemal
   - database-password=kemal
+  options:
+    labels:
+      app: invidious
 - name: gitea-config
   literals:
   - admin-username=rob
@@ -65,12 +76,18 @@ secretGenerator:
   - admin-email=mail@localhost
   files:
   - config.ini=gitea-config.ini
+  options:
+    labels:
+      app: gitea
 - name: drone-credentials
   literals:
   - database-url=postgres://postgres:postgres@dev-db:5432/drone?sslmode=disable
   - gitea-client-id=55847c4a-c80e-4e77-ab36-c6d102273115
   - gitea-client-secret=IU4cb59RNNLuI9PRkUbldcEQ5wYPEZMBK5s6p7vTdVfe
   - rpc-secret=f5ec349109bb9bbdf00e4394afd28754
+  options:
+    labels:
+      app: drone
 - name: synapse-config
   files:
   - homeserver.yaml=synapse-homeserver.yaml

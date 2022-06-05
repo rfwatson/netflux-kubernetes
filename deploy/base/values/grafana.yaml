@@ -50,3 +50,7 @@ dashboards:
       gnetId: 13192
       revision: 1
       datasource: Prometheus
+    gitea:
+      gnetId: 10046
+      revision: 1
+      datasource: Prometheus

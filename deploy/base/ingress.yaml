@@ -74,3 +74,13 @@ spec:
             name: synapse
             port:
               name: http
+  - host: netflux.internal
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: netflux-homepage
+            port:
+              name: http

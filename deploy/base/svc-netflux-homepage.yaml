@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: netflux-homepage
+    app.kubernetes.io/instance: netflux-homepage
+    app.kubernetes.io/name: netflux-homepage
+  name: netflux-homepage
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app.kubernetes.io/instance: netflux-homepage
+    app.kubernetes.io/name: netflux-homepage
+  type: ClusterIP

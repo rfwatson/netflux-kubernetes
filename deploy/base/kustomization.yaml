@@ -90,6 +90,9 @@ resources:
 - statefulset-synapse.yaml
 - svc-synapse.yaml
 
+- deploy-netflux-homepage.yaml
+- svc-netflux-homepage.yaml
+
 configMapGenerator:
 - name: gitea-scripts
   files:

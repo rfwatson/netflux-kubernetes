@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflux-homepage
+  labels:
+    app: netflux-homepage
+    component: web
+    app.kubernetes.io/name: netflux-homepage
+    app.kubernetes.io/instance: netflux-homepage
+spec:
+  selector:
+    matchLabels:
+      app: netflux-homepage
+      component: web
+  template:
+    metadata:
+      labels:
+        app: netflux-homepage
+        component: web
+        app.kubernetes.io/name: netflux-homepage
+        app.kubernetes.io/instance: netflux-homepage
+    spec:
+      containers:
+      - image: netfluxio/homepage:latest
+        imagePullPolicy: Always
+        name: netflux-homepage
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 9000
+        env:
+        - name: NETFLUX_MATRIX_HOSTNAME
+          value: synapse.netflux.io:443
+        - name: NETFLUX_MATRIX_BASE_URL
+          value: https://synapse.matrix.io
+        resources:
+          requests:
+            memory: "16Mi"
+            cpu: "50m"
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
+        livenessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 3

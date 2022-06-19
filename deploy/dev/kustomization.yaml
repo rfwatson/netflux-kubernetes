@@ -52,6 +52,13 @@ configMapGenerator:
   options:
     labels:
       app: drone
+- name: radicale-config
+  files:
+  - config.toml=radicale-config.toml
+  - users=radicale-users
+  options:
+    labels:
+      app: radicale
 secretGenerator:
 - name: grafana-credentials
   literals:

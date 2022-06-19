@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: radicale
+    component: web
+    app.kubernetes.io/instance: radicale
+    app.kubernetes.io/name: radicale
+  name: radicale
+spec:
+  ports:
+  - name: caldav
+    port: 5232
+    protocol: TCP
+    targetPort: 5232
+  selector:
+    app: radicale
+    component: web
+  type: ClusterIP

@@ -93,6 +93,9 @@ resources:
 - deploy-netflux-homepage.yaml
 - svc-netflux-homepage.yaml
 
+- statefulset-radicale.yaml
+- svc-radicale.yaml
+
 configMapGenerator:
 - name: gitea-scripts
   files:

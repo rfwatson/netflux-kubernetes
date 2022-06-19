@@ -16,6 +16,7 @@
       - drone.netflux.io
       - synapse.netflux.io
       - netflux.io
+      - caldav.netflux.io
       secretName: prod-ingress-tls
 - op: replace
   path: /spec/rules/0/host
@@ -38,3 +39,6 @@
 - op: replace
   path: /spec/rules/6/host
   value: netflux.io
+- op: replace
+  path: /spec/rules/7/host
+  value: caldav.netflux.io

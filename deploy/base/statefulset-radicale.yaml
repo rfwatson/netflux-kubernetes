@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: radicale
+  labels:
+    app: radicale
+    component: web
+    app.kubernetes.io/name: radicale
+    app.kubernetes.io/instance: radicale
+spec:
+  serviceName: radicale
+  selector:
+    matchLabels:
+      app: radicale
+      component: web
+  template:
+    metadata:
+      labels:
+        app: radicale
+        component: web
+        app.kubernetes.io/name: radicale
+        app.kubernetes.io/instance: radicale
+    spec:
+      containers:
+      - name: radicale
+        image: tomsquest/docker-radicale
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: caldav
+          protocol: TCP
+          containerPort: 5232
+        env:
+        - name: TAKE_FILE_OWNERSHIP
+          value: "false"
+        volumeMounts:
+        - mountPath: /config/config
+          subPath: config.toml
+          name: config
+        - mountPath: /etc/radicale/users
+          subPath: users
+          name: config
+        - mountPath: /data
+          name: data
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+        livenessProbe:
+          httpGet:
+            path: /.web/
+            port: caldav
+            scheme: HTTP
+          initialDelaySeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 30
+          timeoutSeconds: 1
+        securityContext:
+          privileged: false
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - SETUID
+            - SETGID
+            - KILL
+      volumes:
+      - name: config
+        configMap:
+          name: radicale-config
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi

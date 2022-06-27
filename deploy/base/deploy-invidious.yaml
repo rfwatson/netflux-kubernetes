@@ -71,7 +71,7 @@ spec:
         command: ["sh", "docker/init-invidious-db.sh"]
       containers:
       - image: quay.io/invidious/invidious:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: invidious
         ports:
         - name: http

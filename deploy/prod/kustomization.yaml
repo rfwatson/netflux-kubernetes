@@ -92,6 +92,12 @@ secretGenerator:
   options:
     labels:
       app: synapse
+- name: solar-toolkit-gateway
+  files:
+  - database-url=secrets/solar-toolkit-gateway-database-url
+  options:
+    labels:
+      app: solar-toolkit-gateway
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

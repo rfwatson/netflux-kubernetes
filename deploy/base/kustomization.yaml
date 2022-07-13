@@ -96,6 +96,9 @@ resources:
 - statefulset-radicale.yaml
 - svc-radicale.yaml
 
+- deploy-solar-toolkit-gateway.yaml
+- svc-solar-toolkit-gateway.yaml
+
 configMapGenerator:
 - name: gitea-scripts
   files:

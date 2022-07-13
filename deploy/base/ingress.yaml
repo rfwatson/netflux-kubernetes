@@ -94,3 +94,13 @@ spec:
             name: radicale
             port:
               name: caldav
+  - host: solar-gateway.internal
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: solar-toolkit-gateway
+            port:
+              name: http

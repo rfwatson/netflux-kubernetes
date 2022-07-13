@@ -103,6 +103,12 @@ secretGenerator:
   options:
     labels:
       app: synapse
+- name: solar-toolkit-gateway
+  literals:
+  - database-url=postgres://postgres:postgres@dev-db:5432/solar_toolkit_dev?sslmode=disable
+  options:
+    labels:
+      app: solar-toolkit-gateway
 
 patches:
 # Patch the metrics-server to not require TLS in dev cluster.

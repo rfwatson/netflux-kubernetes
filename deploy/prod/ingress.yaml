@@ -17,6 +17,7 @@
       - synapse.netflux.io
       - netflux.io
       - caldav.netflux.io
+      - solar-gateway.netflux.io
       secretName: prod-ingress-tls
 - op: replace
   path: /spec/rules/0/host
@@ -42,3 +43,6 @@
 - op: replace
   path: /spec/rules/7/host
   value: caldav.netflux.io
+- op: replace
+  path: /spec/rules/8/host
+  value: solar-gateway.netflux.io

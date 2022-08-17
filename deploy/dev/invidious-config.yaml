@@ -1,4 +1,5 @@
 domain: invidious.local
+external_port: 80
 channel_threads: 1
 feed_threads: 1
 registration_enabled: true

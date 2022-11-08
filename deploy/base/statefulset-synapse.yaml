@@ -54,13 +54,14 @@ spec:
         - mountPath: /config/log.config
           subPath: log.config
           name: config
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "500m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
+        # TODO: validate resource limits
+        # resources:
+        #   requests:
+        #     memory: "128Mi"
+        #     cpu: "500m"
+        #   limits:
+        #     memory: "512Mi"
+        #     cpu: "1000m"
         livenessProbe:
           httpGet:
             path: /health

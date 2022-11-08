@@ -24,6 +24,17 @@ and applied with:
 make dev | kubectl apply -f -
 ```
 
+## Helm charts
+
+When required, helm charts can be inflated with:
+
+```
+# install or update the prometheus helm chart:
+make inflate name=prometheus chart=prometheus-community/prometheus
+```
+
+An optional values file can be provided in `deploy/base/values/prometheus.yaml` (update the helm chart name accordingly).
+
 ## Cluster setup
 
 ### cert-manager

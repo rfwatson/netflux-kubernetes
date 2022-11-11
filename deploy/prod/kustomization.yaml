@@ -98,6 +98,10 @@ secretGenerator:
   options:
     labels:
       app: solar-toolkit-gateway
+- name: aws-credentials
+  files:
+  - key=secrets/aws-access-key-id
+  - secret=secrets/aws-secret-access-key
 
 patches:
 # Patch the ingress-nginx deployment to allow it to use a service with a

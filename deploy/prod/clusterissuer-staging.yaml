@@ -1,0 +1,27 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: postmaster@netflux.io
+    privateKeySecretRef:
+      name: prod-letsencrypt-staging
+    solvers:
+    - http01:
+        ingress:
+          class: prod-nginx
+    - dns01:
+        route53:
+          region: eu-west-1
+          hostedZoneID: Z1OSEC2E6M9VER
+          accessKeyID: AKIARZPRT6YGHAENBEEX
+          secretAccessKeySecretRef:
+            # Using name reference transformers to manage this didn't work,
+            # probably because ClusterIssuer is a cluster-scoped resource.
+            #
+            # For now, this secret should be provisioned manually in the
+            # cert-manager namespace:
+            name: prod-aws-credentials
+            key: secret

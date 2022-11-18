@@ -1,0 +1,20 @@
+# Patch external-dns with AWS credentials because helm chart inflation happens
+# too early.
+---
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts
+  value:
+  - name: aws-credentials
+    mountPath: /.aws
+    readOnly: true
+- op: replace
+  path: /spec/template/spec/volumes
+  value:
+  - name: aws-credentials
+    secret:
+      secretName: aws-do-external-dns-credentials
+- op: add
+  path: /spec/template/spec/containers/0/env
+  value:
+    - name: AWS_SHARED_CREDENTIALS_FILE
+      value: /.aws/credentials

@@ -72,6 +72,12 @@ resources:
 # kubernetes-replicator
 - inflated/kubernetes-replicator/templates/deployment.yaml
 - inflated/kubernetes-replicator/templates/rbac.yaml
+# external-dns
+- inflated/external-dns/templates/serviceaccount.yaml
+- inflated/external-dns/templates/deployment.yaml
+- inflated/external-dns/templates/service.yaml
+- inflated/external-dns/templates/clusterrole.yaml
+- inflated/external-dns/templates/clusterrolebinding.yaml
 
 - ingress.yaml
 
@@ -108,6 +114,11 @@ configMapGenerator:
   - init-directory-structure.sh=gitea-init-directory-structure.sh
   - setup.sh=gitea-setup.sh
 
+secretGenerator:
+- name: aws-do-external-dns-credentials
+  files:
+  - credentials=secrets/aws-do-external-dns-credentials
+
 patches:
 # Patch the ingress-nginx service to expose port 22 for Gitea SSH access.
 - target:
@@ -119,3 +130,8 @@ patches:
     kind: Deployment
     name: ingress-nginx-controller
   path: deploy-ingress-nginx.yaml
+
+- target:
+    kind: Deployment
+    name: external-dns
+  path: deploy-external-dns.yaml

@@ -55,10 +55,10 @@ spec:
             - --metrics-address=:7979
             - --log-level=info
             - --log-format=text
-            - --policy=upsert-only
+            - --policy=sync
             - --provider=aws
             - --registry=txt
-            - --interval=1m
+            - --interval=15s
             - --source=service
             - --source=ingress
             # AWS arguments

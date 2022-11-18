@@ -95,12 +95,4 @@ spec:
             limits: {}
             requests: {}
           volumeMounts:
-            # AWS mountPath(s)
-            - name: aws-credentials
-              mountPath: /.aws
-              readOnly: true
       volumes:
-        # AWS volume(s)
-        - name: aws-credentials
-          secret:
-            secretName: foo

@@ -2,6 +2,8 @@
 # Configure the ingress-nginx to use specific nodePorts for HTTP and HTTPS
 # traffic. This allows the cluster to route traffic to the service via port
 # mappings.
+#
+# TODO: use a NodePort service instead and remove the patches.
 - op: replace
   path: /spec/ports/0/nodePort
   value: 32048

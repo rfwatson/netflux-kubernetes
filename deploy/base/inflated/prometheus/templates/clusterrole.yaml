@@ -1,5 +1,5 @@
 ---
-# Source: prometheus/templates/server/clusterrole.yaml
+# Source: prometheus/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -7,7 +7,7 @@ metadata:
     component: "server"
     app: prometheus
     release: prometheus
-    chart: prometheus-15.8.6
+    chart: prometheus-19.0.2
     heritage: Helm
   name: prometheus-server
 rules:

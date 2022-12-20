@@ -1,20 +1,20 @@
 ---
-# Source: prometheus/templates/pushgateway/clusterrolebinding.yaml
+# Source: prometheus/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    component: "pushgateway"
+    component: "server"
     app: prometheus
     release: prometheus
-    chart: prometheus-15.8.6
+    chart: prometheus-19.0.2
     heritage: Helm
-  name: prometheus-pushgateway
+  name: prometheus-server
 subjects:
   - kind: ServiceAccount
-    name: prometheus-pushgateway
+    name: prometheus-server
     namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus-pushgateway
+  name: prometheus-server

@@ -6,13 +6,13 @@ metadata:
   name: prometheus-kube-state-metrics
   namespace: default
   labels:    
-    helm.sh/chart: kube-state-metrics-4.7.0
+    helm.sh/chart: kube-state-metrics-4.24.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.4.1"
+    app.kubernetes.io/version: "2.7.0"
 spec:
   selector:
     matchLabels:      
@@ -22,13 +22,13 @@ spec:
   template:
     metadata:
       labels:        
-        helm.sh/chart: kube-state-metrics-4.7.0
+        helm.sh/chart: kube-state-metrics-4.24.0
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: kube-state-metrics
         app.kubernetes.io/name: kube-state-metrics
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "2.4.1"
+        app.kubernetes.io/version: "2.7.0"
     spec:
       hostNetwork: false
       serviceAccountName: prometheus-kube-state-metrics
@@ -40,10 +40,9 @@ spec:
       - name: kube-state-metrics
         args:
         - --port=8080
-        - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
-        - --telemetry-port=8081
+        - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
         imagePullPolicy: IfNotPresent
-        image: "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1"
+        image: "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.7.0"
         ports:
         - containerPort: 8080
           name: "http"

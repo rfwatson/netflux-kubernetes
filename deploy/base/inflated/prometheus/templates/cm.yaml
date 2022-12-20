@@ -1,5 +1,5 @@
 ---
-# Source: prometheus/templates/server/cm.yaml
+# Source: prometheus/templates/cm.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,11 +7,12 @@ metadata:
     component: "server"
     app: prometheus
     release: prometheus
-    chart: prometheus-15.8.6
+    chart: prometheus-19.0.2
     heritage: Helm
   name: prometheus-server
   namespace: default
 data:
+  allow-snippet-annotations: "false"
   alerting_rules.yml: |
     {}
   alerts: |
@@ -106,7 +107,7 @@ data:
         - __meta_kubernetes_service_annotation_prometheus_io_path
         target_label: __metrics_path__
       - action: replace
-        regex: ([^:]+)(?::\d+)?;(\d+)
+        regex: (.+?)(?::\d+)?;(\d+)
         replacement: $1:$2
         source_labels:
         - __address__
@@ -149,7 +150,7 @@ data:
         - __meta_kubernetes_service_annotation_prometheus_io_path
         target_label: __metrics_path__
       - action: replace
-        regex: ([^:]+)(?::\d+)?;(\d+)
+        regex: (.+?)(?::\d+)?;(\d+)
         replacement: $1:$2
         source_labels:
         - __address__
@@ -236,7 +237,7 @@ data:
         - __meta_kubernetes_pod_annotation_prometheus_io_path
         target_label: __metrics_path__
       - action: replace
-        regex: ([^:]+)(?::\d+)?;(\d+)
+        regex: (.+?)(?::\d+)?;(\d+)
         replacement: $1:$2
         source_labels:
         - __address__
@@ -279,7 +280,7 @@ data:
         - __meta_kubernetes_pod_annotation_prometheus_io_path
         target_label: __metrics_path__
       - action: replace
-        regex: ([^:]+)(?::\d+)?;(\d+)
+        regex: (.+?)(?::\d+)?;(\d+)
         replacement: $1:$2
         source_labels:
         - __address__
@@ -315,14 +316,11 @@ data:
         - source_labels: [__meta_kubernetes_namespace]
           regex: default
           action: keep
-        - source_labels: [__meta_kubernetes_pod_label_app]
+        - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_instance]
           regex: prometheus
           action: keep
-        - source_labels: [__meta_kubernetes_pod_label_component]
+        - source_labels: [__meta_kubernetes_pod_label_app_kubernetes_io_name]
           regex: alertmanager
-          action: keep
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_probe]
-          regex: .*
           action: keep
         - source_labels: [__meta_kubernetes_pod_container_port_number]
           regex: "9093"

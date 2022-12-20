@@ -4,10 +4,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: external-dns
-  namespace: default
+  namespace: "default"
   labels: 
     app.kubernetes.io/name: external-dns
-    helm.sh/chart: external-dns-6.3.0
+    helm.sh/chart: external-dns-6.12.2
     app.kubernetes.io/instance: external-dns
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -20,7 +20,7 @@ spec:
     metadata:
       labels: 
         app.kubernetes.io/name: external-dns
-        helm.sh/chart: external-dns-6.3.0
+        helm.sh/chart: external-dns-6.12.2
         app.kubernetes.io/instance: external-dns
         app.kubernetes.io/managed-by: Helm
       annotations:
@@ -39,8 +39,6 @@ spec:
                   matchLabels:
                     app.kubernetes.io/name: external-dns
                     app.kubernetes.io/instance: external-dns
-                namespaces:
-                  - "default"
                 topologyKey: kubernetes.io/hostname
               weight: 1
         nodeAffinity:
@@ -48,7 +46,7 @@ spec:
       serviceAccountName: external-dns
       containers:
         - name: external-dns
-          image: "docker.io/bitnami/external-dns:0.11.1-debian-10-r1"
+          image: "docker.io/bitnami/external-dns:0.13.1-debian-11-r19"
           imagePullPolicy: "IfNotPresent"
           args:
             # Generic arguments

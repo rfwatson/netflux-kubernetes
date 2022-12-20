@@ -6,10 +6,10 @@ metadata:
   name: grafana
   namespace: default
   labels:
-    helm.sh/chart: grafana-6.29.2
+    helm.sh/chart: grafana-6.48.0
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: grafana
-    app.kubernetes.io/version: "8.5.0"
+    app.kubernetes.io/version: "9.3.1"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -26,8 +26,8 @@ spec:
         app.kubernetes.io/name: grafana
         app.kubernetes.io/instance: grafana
       annotations:
-        checksum/config: 6060638a52f08e279c64b37a63b59ec99aa0b12a2a25e594b3d7acd41512ea01
-        checksum/dashboards-json-config: 60bfce132b37398fa9329494762f049aebef4ba473dabdd67d4f15d6a86a578c
+        checksum/config: 60be875675b2ad83279ee347d5a150559b24646f43fbc740f51b97915a0b9c31
+        checksum/dashboards-json-config: 703b33634d715cefba0501f04654c5d6dc28aba46888183ea3420ccdae3c8ecf
         checksum/sc-dashboard-provider-config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
     spec:
       
@@ -39,12 +39,10 @@ spec:
         runAsUser: 472
       initContainers:
         - name: download-dashboards
-          image: "curlimages/curl:7.73.0"
+          image: "curlimages/curl:7.85.0"
           imagePullPolicy: IfNotPresent
           command: ["/bin/sh"]
           args: [ "-c", "mkdir -p /var/lib/grafana/dashboards/default && /bin/sh -x /etc/grafana/download_dashboards.sh" ]
-          resources:
-            {}
           env:
           volumeMounts:
             - name: config
@@ -55,7 +53,7 @@ spec:
       enableServiceLinks: true
       containers:
         - name: grafana
-          image: "grafana/grafana:8.5.0"
+          image: "grafana/grafana:9.3.1"
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: config
@@ -70,9 +68,6 @@ spec:
               mountPath: "/etc/grafana/provisioning/dashboards/dashboardproviders.yaml"
               subPath: "dashboardproviders.yaml"
           ports:
-            - name: service
-              containerPort: 80
-              protocol: TCP
             - name: grafana
               containerPort: 3000
               protocol: TCP
@@ -106,8 +101,6 @@ spec:
             httpGet:
               path: /api/health
               port: 3000
-          resources:
-            {}
       volumes:
         - name: config
           configMap:

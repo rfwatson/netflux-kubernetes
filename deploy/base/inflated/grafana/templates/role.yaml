@@ -6,13 +6,13 @@ metadata:
   name: grafana
   namespace: default
   labels:
-    helm.sh/chart: grafana-6.29.2
+    helm.sh/chart: grafana-6.48.0
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: grafana
-    app.kubernetes.io/version: "8.5.0"
+    app.kubernetes.io/version: "9.3.1"
     app.kubernetes.io/managed-by: Helm
 rules:
-- apiGroups:      ['extensions']
-  resources:      ['podsecuritypolicies']
-  verbs:          ['use']
-  resourceNames:  [grafana]
+  - apiGroups:      ['extensions']
+    resources:      ['podsecuritypolicies']
+    verbs:          ['use']
+    resourceNames:  [grafana]

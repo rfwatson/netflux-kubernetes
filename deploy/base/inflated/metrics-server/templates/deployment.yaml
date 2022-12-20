@@ -4,11 +4,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: metrics-server
+  namespace: default
   labels:
-    helm.sh/chart: metrics-server-3.8.2
+    helm.sh/chart: metrics-server-3.8.3
     app.kubernetes.io/name: metrics-server
     app.kubernetes.io/instance: metrics-server
-    app.kubernetes.io/version: "0.6.1"
+    app.kubernetes.io/version: "0.6.2"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -22,6 +23,7 @@ spec:
         app.kubernetes.io/name: metrics-server
         app.kubernetes.io/instance: metrics-server
     spec:
+      schedulerName: 
       serviceAccountName: metrics-server
       priorityClassName: "system-cluster-critical"
       containers:
@@ -31,7 +33,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 1000
-          image: k8s.gcr.io/metrics-server/metrics-server:v0.6.1
+          image: k8s.gcr.io/metrics-server/metrics-server:v0.6.2
           imagePullPolicy: IfNotPresent
           args:
             - --secure-port=4443

@@ -108,6 +108,12 @@ configMapGenerator:
   files:
   - init-directory-structure.sh=gitea-init-directory-structure.sh
   - setup.sh=gitea-setup.sh
+- name: invidious-scripts
+  files:
+  - init.sh=invidious-init.sh
+  options:
+    labels:
+      app: invidious
 
 secretGenerator:
 - name: aws-do-external-dns-credentials

@@ -27,7 +27,9 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: data
-        command: ["git", "clone", "--depth", "1", "https://github.com/iv-org/invidious.git", "/data/repo"]
+        - mountPath: /scripts
+          name: scripts
+        command: ["/bin/sh", "/scripts/init.sh"]
       - image: jbergknoff/postgresql-client:latest
         imagePullPolicy: IfNotPresent
         name: init-invidious-db
@@ -117,3 +119,6 @@ spec:
       - name: config
         configMap:
           name: invidious-config
+      - name: scripts
+        configMap:
+          name: invidious-scripts

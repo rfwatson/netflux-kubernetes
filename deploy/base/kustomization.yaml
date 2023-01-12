@@ -108,6 +108,9 @@ configMapGenerator:
   files:
   - init-directory-structure.sh=gitea-init-directory-structure.sh
   - setup.sh=gitea-setup.sh
+  options:
+    labels:
+      app: gitea
 - name: invidious-scripts
   files:
   - init.sh=invidious-init.sh

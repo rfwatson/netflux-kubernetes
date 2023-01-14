@@ -54,3 +54,7 @@ dashboards:
       gnetId: 10046
       revision: 1
       datasource: Prometheus
+    go:
+      gnetId: 6671
+      revision: 2
+      datasource: Prometheus

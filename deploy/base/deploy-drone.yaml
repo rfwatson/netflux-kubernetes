@@ -74,6 +74,8 @@ spec:
             configMapKeyRef:
               name: drone-config
               key: logs-debug
+        - name: DRONE_MAX_POOL_SIZE
+          value: "1"
         resources:
           requests:
             memory: "32Mi"

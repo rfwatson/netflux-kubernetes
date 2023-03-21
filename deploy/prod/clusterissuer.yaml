@@ -9,9 +9,11 @@ spec:
     privateKeySecretRef:
       name: prod-letsencrypt
     solvers:
-    - http01:
-        ingress:
-          class: prod-nginx
+    # HTTP solver disabled for wildcard support.
+    # TODO: consider reenabling
+    # - http01:
+    #     ingress:
+    #       class: prod-nginx
     - dns01:
         route53:
           region: eu-west-1

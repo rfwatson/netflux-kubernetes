@@ -55,3 +55,9 @@ kubectl apply -f cert-manager/issuer-production.yml
 
 This should be sufficient for cert-manager to issue certificates automatically when the
 `tls.enabled` value is set to `true`.
+
+### Manual installations
+
+The following installations are not defined in this repo.
+
+- Telepresence [link](https://www.telepresence.io/docs/latest/quick-start/)

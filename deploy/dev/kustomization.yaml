@@ -67,6 +67,7 @@ secretGenerator:
 - name: invidious-credentials
   literals:
   - database-url=postgresql://kemal:kemal@dev-db:5432/invidious
+  - hmac-key=fc93ecd912530fa278c8642cb16a2f86b76c228ce4b4b70a6e3107dfb57214ab
   # Individual keys required by init-invidious-db:
   - database-host=dev-db
   - database-port=5432

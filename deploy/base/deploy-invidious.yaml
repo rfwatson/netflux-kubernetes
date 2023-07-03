@@ -88,6 +88,12 @@ spec:
               name: invidious-credentials
               key: database-url
               optional: false
+        - name: INVIDIOUS_HMAC_KEY
+          valueFrom:
+            secretKeyRef:
+              name: invidious-credentials
+              key: hmac-key
+              optional: false
         volumeMounts:
         - mountPath: /invidious/config/config.yml
           subPath: config.yml

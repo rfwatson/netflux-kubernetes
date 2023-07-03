@@ -64,6 +64,7 @@ secretGenerator:
   files:
   - database-url=secrets/invidious-database-url
   - database-password=secrets/invidious-database-password
+  - hmac-key=secrets/invidious-hmac-key.txt
   options:
     labels:
       app: invidious

@@ -6,10 +6,10 @@ metadata:
   name: grafana
   namespace: default
   labels:
-    helm.sh/chart: grafana-6.48.0
+    helm.sh/chart: grafana-6.58.3
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: grafana
-    app.kubernetes.io/version: "9.3.1"
+    app.kubernetes.io/version: "10.0.2"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -26,9 +26,10 @@ spec:
         app.kubernetes.io/name: grafana
         app.kubernetes.io/instance: grafana
       annotations:
-        checksum/config: 6cfd9cde9e064705ef04cb503eaf1ec3f1d9ddcd7587d64e86513af5ca827e2c
-        checksum/dashboards-json-config: 703b33634d715cefba0501f04654c5d6dc28aba46888183ea3420ccdae3c8ecf
+        checksum/config: 6d02e56644107500207b217eb10509f2af0039e3a918f8cb1411f6c7d8db7cd5
+        checksum/dashboards-json-config: 2b3b91b055108de2da8951a904e7c7ea49b5a5a250d2649ba27b7b7b7ec34cfd
         checksum/sc-dashboard-provider-config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        kubectl.kubernetes.io/default-container: grafana
     spec:
       
       serviceAccountName: grafana
@@ -36,14 +37,22 @@ spec:
       securityContext:
         fsGroup: 472
         runAsGroup: 472
+        runAsNonRoot: true
         runAsUser: 472
       initContainers:
         - name: download-dashboards
-          image: "curlimages/curl:7.85.0"
+          image: "docker.io/curlimages/curl:7.85.0"
           imagePullPolicy: IfNotPresent
           command: ["/bin/sh"]
           args: [ "-c", "mkdir -p /var/lib/grafana/dashboards/default && /bin/sh -x /etc/grafana/download_dashboards.sh" ]
           env:
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
           volumeMounts:
             - name: config
               mountPath: "/etc/grafana/download_dashboards.sh"
@@ -53,8 +62,15 @@ spec:
       enableServiceLinks: true
       containers:
         - name: grafana
-          image: "grafana/grafana:9.3.1"
+          image: "docker.io/grafana/grafana:10.0.2"
           imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
           volumeMounts:
             - name: config
               mountPath: "/etc/grafana/grafana.ini"
@@ -71,7 +87,17 @@ spec:
             - name: grafana
               containerPort: 3000
               protocol: TCP
+            - name: gossip-tcp
+              containerPort: 9094
+              protocol: TCP
+            - name: gossip-udp
+              containerPort: 9094
+              protocol: UDP
           env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
             - name: GF_SECURITY_ADMIN_USER
               valueFrom:
                 secretKeyRef:

@@ -4,11 +4,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    component: "server"
-    app: prometheus
-    release: prometheus
-    chart: prometheus-19.0.2
-    heritage: Helm
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/version: v2.45.0
+    helm.sh/chart: prometheus-23.1.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: prometheus
   name: prometheus-server
   namespace: default
 spec:
@@ -18,8 +20,8 @@ spec:
       protocol: TCP
       targetPort: 9090
   selector:
-    component: "server"
-    app: prometheus
-    release: prometheus
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/instance: prometheus
   sessionAffinity: None
   type: "ClusterIP"

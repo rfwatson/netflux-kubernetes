@@ -36,7 +36,6 @@ resources:
 - inflated/prometheus/charts/prometheus-node-exporter/templates/service.yaml
 - inflated/prometheus/charts/alertmanager/templates/serviceaccount.yaml
 - inflated/prometheus/charts/alertmanager/templates/services.yaml
-- inflated/prometheus/charts/alertmanager/templates/tests/test-connection.yaml
 - inflated/prometheus/charts/alertmanager/templates/configmap.yaml
 - inflated/prometheus/charts/alertmanager/templates/statefulset.yaml
 - inflated/prometheus/charts/kube-state-metrics/templates/serviceaccount.yaml

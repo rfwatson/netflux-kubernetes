@@ -5,11 +5,12 @@ kind: ConfigMap
 metadata:
   name: prometheus-alertmanager
   labels:
-    helm.sh/chart: alertmanager-0.22.2
+    helm.sh/chart: alertmanager-0.33.1
     app.kubernetes.io/name: alertmanager
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "v0.24.0"
+    app.kubernetes.io/version: "v0.25.0"
     app.kubernetes.io/managed-by: Helm
+  namespace: default
 data:
   alertmanager.yml: |
     global: {}

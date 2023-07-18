@@ -22,6 +22,17 @@ configMapGenerator:
   behavior: merge
   files:
   - prometheus.yml=prometheus.yaml
+  - alerting_rules.yml=prometheus-alerting-rules.yaml
+  options:
+    labels:
+      app: prometheus
+- name: prometheus-alertmanager
+  behavior: merge
+  files:
+  - alertmanager.yml=prometheus-alertmanager.yaml
+  options:
+    labels:
+      app: prometheus
 - name: grafana
   behavior: merge
   files:

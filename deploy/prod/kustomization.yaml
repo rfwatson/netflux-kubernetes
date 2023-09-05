@@ -26,7 +26,7 @@ configMapGenerator:
   behavior: merge
   files:
   - grafana.ini=secrets/grafana-config.ini
-  - datasources.yaml=grafana-datasources.yaml
+  - datasources.yaml=secrets/grafana-datasources.yaml
 - name: invidious-config
   files:
   - config.yml=invidious-config.yaml

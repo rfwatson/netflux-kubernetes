@@ -4,3 +4,12 @@ datasources:
   name: Prometheus
   type: prometheus
   url: http://dev-prometheus-server
+- name: PostgreSQL (solar_toolkit)
+  type: postgres
+  url: dev-db:5432
+  user: solar_toolkit_reader
+  jsonData:
+    database: solar_toolkit
+    sslmode: disable
+  secureJsonData:
+    password: postgres

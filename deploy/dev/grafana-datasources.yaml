@@ -13,3 +13,6 @@ datasources:
     sslmode: disable
   secureJsonData:
     password: postgres
+# To delete a datasource, deploy this snippet:
+# deleteDatasources:
+# - name: foo

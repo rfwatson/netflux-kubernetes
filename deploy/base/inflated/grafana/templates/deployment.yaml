@@ -26,7 +26,7 @@ spec:
         app.kubernetes.io/name: grafana
         app.kubernetes.io/instance: grafana
       annotations:
-        checksum/config: 6d02e56644107500207b217eb10509f2af0039e3a918f8cb1411f6c7d8db7cd5
+        checksum/config: 36a36abf9dd9e61eaa035cfc90acbb82d3e6c131aa9fd57eaf98ae5380401bf3
         checksum/dashboards-json-config: 2b3b91b055108de2da8951a904e7c7ea49b5a5a250d2649ba27b7b7b7ec34cfd
         checksum/sc-dashboard-provider-config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
         kubectl.kubernetes.io/default-container: grafana
@@ -80,6 +80,9 @@ spec:
             - name: config
               mountPath: "/etc/grafana/provisioning/datasources/datasources.yaml"
               subPath: "datasources.yaml"
+            - name: config
+              mountPath: "/etc/grafana/provisioning/alerting/contactpoints.yaml"
+              subPath: "contactpoints.yaml"
             - name: config
               mountPath: "/etc/grafana/provisioning/dashboards/dashboardproviders.yaml"
               subPath: "dashboardproviders.yaml"

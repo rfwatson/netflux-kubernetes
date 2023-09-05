@@ -33,6 +33,8 @@ data:
       name: Prometheus
       type: prometheus
       url: http://prometheus-server
+  contactpoints.yaml: |
+    apiVersion: 1
   dashboardproviders.yaml: |
     apiVersion: 1
     providers:

@@ -35,6 +35,8 @@ data:
       url: http://prometheus-server
   contactpoints.yaml: |
     apiVersion: 1
+  rules.yaml: |
+    apiVersion: 1
   dashboardproviders.yaml: |
     apiVersion: 1
     providers:

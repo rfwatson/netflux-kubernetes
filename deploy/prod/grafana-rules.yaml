@@ -1,0 +1,288 @@
+apiVersion: 1
+groups:
+- name: rules.yaml
+  interval: 60s
+  folder: Solar
+  rules:
+  - id: 2
+    uid: c40e8d57-9d65-4a28-8485-a46b810c033e
+    orgID: 1
+    folderUID: ded7fd24-65bf-4e04-95ec-0970287687cb
+    ruleGroup: every_minute
+    title: solar_grid_mode_unexpected_value
+    condition: B
+    data:
+      - refId: A
+        queryType: ""
+        relativeTimeRange:
+          from: 300
+          to: 0
+        datasourceUid: P0A2ACEDBDFD04F7F
+        model:
+          datasource:
+            type: postgres
+            uid: P0A2ACEDBDFD04F7F
+          editorMode: code
+          format: table
+          hide: false
+          intervalMs: 1000
+          maxDataPoints: 43200
+          rawQuery: true
+          rawSql: SELECT grid_mode FROM et_runtime_data  ORDER BY "timestamp" DESC LIMIT 1
+          refId: A
+          sql:
+            columns:
+              - parameters:
+                  - name: grid_mode
+                    type: functionParameter
+                type: function
+            groupBy:
+              - property:
+                  type: string
+                type: groupBy
+            limit: 5
+            orderBy:
+              property:
+                name: '"timestamp"'
+                type: string
+              type: property
+            orderByDirection: ASC
+            whereJsonTree:
+              children1:
+                - id: a9b888a9-0123-4456-b89a-b18a6c43c585
+                  properties:
+                    field: null
+                    operator: null
+                    value: []
+                    valueSrc: []
+                  type: rule
+              id: bb8b9bba-89ab-4cde-b012-318a673c506d
+              type: group
+          table: et_runtime_data
+      - refId: B
+        queryType: ""
+        relativeTimeRange:
+          from: 600
+          to: 0
+        datasourceUid: __expr__
+        model:
+          conditions:
+            - evaluator:
+                params:
+                  - 1
+                  - 1
+                type: outside_range
+              operator:
+                type: and
+              query:
+                params:
+                  - A
+              reducer:
+                params: []
+                type: last
+              type: query
+          datasource:
+            name: Expression
+            type: __expr__
+            uid: __expr__
+          expression: ""
+          intervalMs: 1000
+          maxDataPoints: 43200
+          refId: B
+          type: classic_conditions
+    updated: "2023-09-06T20:55:12Z"
+    noDataState: Alerting
+    execErrState: Error
+    for: 5m
+    isPaused: false
+  - id: 4
+    uid: e6c41854-ace4-4149-9aea-dfb74454a496
+    orgID: 1
+    folderUID: ded7fd24-65bf-4e04-95ec-0970287687cb
+    ruleGroup: every_minute
+    title: solar_temperature_high
+    condition: B
+    data:
+      - refId: A
+        queryType: ""
+        relativeTimeRange:
+          from: 600
+          to: 0
+        datasourceUid: P0A2ACEDBDFD04F7F
+        model:
+          datasource:
+            type: postgres
+            uid: P0A2ACEDBDFD04F7F
+          editorMode: code
+          format: table
+          hide: false
+          intervalMs: 1000
+          maxDataPoints: 43200
+          rawQuery: true
+          rawSql: 'SELECT temperature FROM et_runtime_data WHERE timestamp > (NOW() - ''15 minutes''::interval) ORDER BY "timestamp" DESC LIMIT 50 '
+          refId: A
+          sql:
+            columns:
+              - parameters:
+                  - name: temperature
+                    type: functionParameter
+                type: function
+            groupBy:
+              - property:
+                  type: string
+                type: groupBy
+            limit: 50
+            orderBy:
+              property:
+                name: '"timestamp"'
+                type: string
+              type: property
+            orderByDirection: DESC
+            whereJsonTree:
+              children1:
+                - id: 8bba9888-89ab-4cde-b012-318a70ec0037
+                  properties:
+                    field: '"timestamp"'
+                    operator: equal
+                    value:
+                      - null
+                    valueSrc:
+                      - value
+                    valueType:
+                      - datetime
+                  type: rule
+              id: bbb98b9a-89ab-4cde-b012-318a70eb5f5f
+              type: group
+          table: et_runtime_data
+      - refId: B
+        queryType: ""
+        relativeTimeRange:
+          from: 0
+          to: 0
+        datasourceUid: __expr__
+        model:
+          conditions:
+            - evaluator:
+                params:
+                  - 60
+                  - 0
+                type: gt
+              operator:
+                type: and
+              query:
+                params:
+                  - A
+              reducer:
+                params: []
+                type: avg
+              type: query
+          datasource:
+            name: Expression
+            type: __expr__
+            uid: __expr__
+          expression: ""
+          intervalMs: 1000
+          maxDataPoints: 43200
+          refId: B
+          type: classic_conditions
+    updated: "2023-09-07T18:37:57Z"
+    noDataState: NoData
+    execErrState: Error
+    for: 5m
+    isPaused: false
+- name: rules.yaml
+  interval: 60s
+  folder: Nodes (General)
+  rules:
+  - id: 6
+    uid: a33b6255-4262-4924-bc25-99893d3e6d2c
+    orgID: 1
+    folderUID: b2d32456-52c2-456e-8906-4652925c88c6
+    ruleGroup: every_minute
+    title: db_disk_utilization_high
+    condition: C
+    data:
+      - refId: A
+        queryType: ""
+        relativeTimeRange:
+          from: 600
+          to: 0
+        datasourceUid: PBFA97CFB590B2093
+        model:
+          datasource:
+            type: prometheus
+            uid: PBFA97CFB590B2093
+          editorMode: code
+          expr: 100 - ((node_filesystem_avail_bytes{instance="prod-db:9100",job="node",device!~'rootfs',mountpoint="/mnt/volume_db"} * 100) / node_filesystem_size_bytes{instance="prod-db:9100",job="node",device!~'rootfs',mountpoint="/mnt/volume_db"})
+          hide: false
+          instant: true
+          intervalMs: 1000
+          maxDataPoints: 43200
+          range: false
+          refId: A
+      - refId: B
+        queryType: ""
+        relativeTimeRange:
+          from: 600
+          to: 0
+        datasourceUid: __expr__
+        model:
+          conditions:
+            - evaluator:
+                params: []
+                type: gt
+              operator:
+                type: and
+              query:
+                params:
+                  - B
+              reducer:
+                params: []
+                type: last
+              type: query
+          datasource:
+            type: __expr__
+            uid: __expr__
+          expression: A
+          hide: false
+          intervalMs: 1000
+          maxDataPoints: 43200
+          reducer: mean
+          refId: B
+          type: reduce
+      - refId: C
+        queryType: ""
+        relativeTimeRange:
+          from: 600
+          to: 0
+        datasourceUid: __expr__
+        model:
+          conditions:
+            - evaluator:
+                params:
+                  - 85
+                type: gt
+              operator:
+                type: and
+              query:
+                params:
+                  - C
+              reducer:
+                params: []
+                type: last
+              type: query
+          datasource:
+            type: __expr__
+            uid: __expr__
+          expression: B
+          hide: false
+          intervalMs: 1000
+          maxDataPoints: 43200
+          refId: C
+          type: threshold
+    updated: "2023-09-07T18:50:52Z"
+    noDataState: NoData
+    execErrState: Error
+    for: 5m
+    isPaused: false
+

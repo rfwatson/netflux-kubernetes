@@ -22,6 +22,8 @@ datasources:
 alerting:
   contactpoints.yaml:
     apiVersion: 1
+  rules.yaml:
+    apiVersion: 1
 dashboardProviders:
   dashboardproviders.yaml:
     apiVersion: 1

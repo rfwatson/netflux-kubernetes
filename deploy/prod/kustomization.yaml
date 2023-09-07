@@ -28,6 +28,7 @@ configMapGenerator:
   - grafana.ini=secrets/grafana-config.ini
   - datasources.yaml=secrets/grafana-datasources.yaml
   - contactpoints.yaml=grafana-contactpoints.yaml
+  - rules.yaml=grafana-rules.yaml
 - name: invidious-config
   files:
   - config.yml=invidious-config.yaml

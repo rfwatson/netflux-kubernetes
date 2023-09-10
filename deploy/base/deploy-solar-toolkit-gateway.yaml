@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/instance: solar-toolkit-gateway
     spec:
       containers:
-      - image: netfluxio/solar-toolkit:latest
+      - image: netfluxio/solar-toolkit@sha256:a2251b90278bf66c04980fb4e16353195f2dbd07690df2922b61a7cf09aea049
         imagePullPolicy: Always
         name: solar-toolkit
         ports:

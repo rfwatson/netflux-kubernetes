@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: element
-          image: vectorim/element-web:latest
+          image: vectorim/element-web:v1.11.40
           volumeMounts:
             - name: config
               mountPath: /app/config.json

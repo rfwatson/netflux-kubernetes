@@ -30,7 +30,7 @@ spec:
         runAsUser: 991
         runAsGroup: 991
       containers:
-      - image: matrixdotorg/synapse:latest
+      - image: matrixdotorg/synapse:v1.91.2
         imagePullPolicy: IfNotPresent
         name: synapse
         ports:

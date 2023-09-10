@@ -21,7 +21,7 @@ spec:
         app.kubernetes.io/instance: netflux-homepage
     spec:
       containers:
-      - image: netfluxio/homepage:latest
+      - image: netfluxio/homepage@sha256:fc253db170fddf4c4cf60aa4e1cefd4f9becb1305aba0929034d2b7636b6aad1
         imagePullPolicy: Always
         name: netflux-homepage
         ports:

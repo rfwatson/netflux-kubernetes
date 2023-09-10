@@ -7,6 +7,8 @@ metadata:
     component: web
     app.kubernetes.io/name: solar-toolkit-gateway
     app.kubernetes.io/instance: solar-toolkit-gateway
+  annotations:
+    ignore-check.kube-linter.io/run-as-non-root: "Not yet implemented"
 spec:
   selector:
     matchLabels:

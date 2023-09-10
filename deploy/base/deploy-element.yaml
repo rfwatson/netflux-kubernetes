@@ -9,6 +9,7 @@ metadata:
     app.kubernetes.io/instance: element
   annotations:
     ignore-check.kube-linter.io/no-read-only-root-fs: "Element image requires write access for Nginx configuration"
+    ignore-check.kube-linter.io/run-as-non-root: "Not yet implemented"
 spec:
   selector:
     matchLabels:

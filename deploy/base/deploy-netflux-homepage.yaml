@@ -7,6 +7,8 @@ metadata:
     component: web
     app.kubernetes.io/name: netflux-homepage
     app.kubernetes.io/instance: netflux-homepage
+  annotations:
+    ignore-check.kube-linter.io/run-as-non-root: "Not yet implemented"
 spec:
   selector:
     matchLabels:

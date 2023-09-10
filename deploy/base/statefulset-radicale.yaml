@@ -21,6 +21,10 @@ spec:
         app.kubernetes.io/name: radicale
         app.kubernetes.io/instance: radicale
     spec:
+      securityContext:
+        runAsUser: 2999
+        runAsGroup: 2999
+        runAsNonRoot: true
       containers:
       - name: radicale
         image: tomsquest/docker-radicale:3.1.8.3

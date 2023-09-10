@@ -7,6 +7,8 @@ metadata:
     component: runner
     app.kubernetes.io/name: drone-runner
     app.kubernetes.io/instance: drone-runner
+  annotations:
+    ignore-check.kube-linter.io/run-as-non-root: "Not yet implemented"
 spec:
   selector:
     matchLabels:

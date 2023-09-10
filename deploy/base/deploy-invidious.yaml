@@ -20,6 +20,10 @@ spec:
         app.kubernetes.io/name: invidious
         app.kubernetes.io/instance: invidious
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
       initContainers:
       - image: alpine/git:2.40.1
         imagePullPolicy: IfNotPresent

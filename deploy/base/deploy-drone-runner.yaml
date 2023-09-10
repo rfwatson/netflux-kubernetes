@@ -50,3 +50,10 @@ spec:
               key: logs-debug
         - name: DRONE_RESOURCE_REQUEST_CPU
           value: "500"
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 500m
+          limits:
+            memory: 1024Mi
+            cpu: 1500m

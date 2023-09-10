@@ -44,6 +44,13 @@ spec:
           value: /tmp/gitea
         - name: TMPDIR
           value: /tmp/gitea
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 1500m
         volumeMounts:
         - mountPath: /data
           name: data
@@ -80,6 +87,13 @@ spec:
             secretKeyRef:
               name: gitea-config
               key: admin-password
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 1500m
         volumeMounts:
         - mountPath: /data
           name: data
@@ -127,8 +141,11 @@ spec:
           name: data
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 1500m
         livenessProbe:
           tcpSocket:
             port: http

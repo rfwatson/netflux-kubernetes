@@ -30,6 +30,13 @@ spec:
         - mountPath: /scripts
           name: scripts
         command: ["/bin/sh", "/scripts/init.sh"]
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 100m
+          limits:
+            memory: 128Mi
+            cpu: 500m
       - image: jbergknoff/postgresql-client@sha256:45e175ebb700cfd46e23a610477c3576550055ef40c394e663623946a5eced39
         imagePullPolicy: IfNotPresent
         name: init-invidious-db
@@ -69,6 +76,13 @@ spec:
               name: invidious-credentials
               key: database-password
               optional: false
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 256Mi
+            cpu: 1000m
         workingDir: /data/repo
         command: ["sh", "docker/init-invidious-db.sh"]
       containers:
@@ -100,11 +114,11 @@ spec:
           name: config
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: 128Mi
+            cpu: 100m
           limits:
-            memory: "256Mi"
-            cpu: "500m"
+            memory: 256Mi
+            cpu: 1000m
         lifecycle:
           preStop:
             exec:

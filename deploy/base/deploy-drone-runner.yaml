@@ -57,3 +57,5 @@ spec:
           limits:
             memory: 1024Mi
             cpu: 1500m
+        securityContext:
+          readOnlyRootFilesystem: true

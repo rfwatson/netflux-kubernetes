@@ -59,6 +59,8 @@ spec:
         - mountPath: /usr/sbin/init-directory-structure.sh
           subPath: init-directory-structure.sh
           name: scripts
+        securityContext:
+          readOnlyRootFilesystem: true
       - name: setup-gitea
         image: gitea/gitea:1.20.4-rootless
         imagePullPolicy: IfNotPresent

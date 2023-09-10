@@ -61,6 +61,8 @@ spec:
           limits:
             memory: 512Mi
             cpu: 2000m
+        securityContext:
+          readOnlyRootFilesystem: true
         livenessProbe:
           httpGet:
             path: /health

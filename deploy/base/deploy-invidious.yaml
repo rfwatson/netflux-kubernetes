@@ -37,6 +37,8 @@ spec:
           limits:
             memory: 128Mi
             cpu: 500m
+        securityContext:
+          readOnlyRootFilesystem: true
       - image: jbergknoff/postgresql-client@sha256:45e175ebb700cfd46e23a610477c3576550055ef40c394e663623946a5eced39
         imagePullPolicy: IfNotPresent
         name: init-invidious-db
@@ -83,6 +85,8 @@ spec:
           limits:
             memory: 256Mi
             cpu: 1000m
+        securityContext:
+          readOnlyRootFilesystem: true
         workingDir: /data/repo
         command: ["sh", "docker/init-invidious-db.sh"]
       containers:
@@ -133,6 +137,8 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 10
+        securityContext:
+          readOnlyRootFilesystem: true
       volumes:
       - name: data
         emptyDir: {}

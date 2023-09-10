@@ -1,14 +1,27 @@
 # Netflux on Kubernetes
 
-This is a learning project to migrate the self-hosted services that I host at
-netflux.io to Kubernetes.
+This repo contains Kubernetes manifests for deploying various self-hosted
+services to the `netflux.io` domain.
 
-![Me deploying my blog on Kubernetes](https://git.netflux.io/rob/netflux-kubernetes/raw/branch/main/picture.jpg)
+![Me deploying my blog on Kubernetes. Probable credit @dexhorthy](https://git.netflux.io/rob/netflux-kubernetes/raw/branch/main/picture.jpg "Me deploying my blog on Kubernetes")
 
-This repository contains the Kubernetes manifests, which are built using
-Kustomize. Helm chart dependencies are inflated and managed in this repository
-to improve observability. The cluster is deployed to DigitalOcean managed K8S
-in production, but can be easily applied to a local cluster for testing.
+All of the manifests are built using [Kustomize](https://kustomize.io/). I
+avoid Helm charts whenever possible, but when they're needed (Prometheus,
+Grafana, etc) the charts are inflated into this repository for visibility and
+auditability.
+
+The manifests are deployed to a DigitalOcean managed k8s cluster in production,
+and can be easily applied to a local cluster for testing and development.
+
+Of course all this would in many ways be simpler with a docker-compose.yml
+shipped to a virtual host, which is exactly how everything used to be deployed.
+This project is mostly a fun learning exercise.
+
+## Git
+
+The main git repo is hosted at: https://git.netflux.io/rob/netflux-kubernetes
+
+It is also mirrored on GitHub: https://github.com/rfwatson/netflux-kubernetes
 
 ## Building
 
@@ -24,6 +37,14 @@ and applied with:
 make dev | kubectl apply -f -
 ```
 
+## Linting
+
+The manifests are linted with [kube-linter](https://docs.kubelinter.io):
+
+```
+kube-linter lint .
+```
+
 ## Helm charts
 
 When required, helm charts can be inflated with:
@@ -33,31 +54,31 @@ When required, helm charts can be inflated with:
 make inflate name=prometheus chart=prometheus-community/prometheus
 ```
 
-An optional values file can be provided in `deploy/base/values/prometheus.yaml` (update the helm chart name accordingly).
+An optional values file can be provided, e.g. `deploy/base/values/prometheus.yaml`.
+
+## URLs
+
+URLs to some of the deployed services:
+
+* [git.netflux.io](https://git.netflux.io)
+* [tube.netflux.io](https://tube.netflux.io)
+* [element.netflux.io](https://element.netflux.io)
 
 ## Cluster setup
 
-### cert-manager
+### Development
 
-cert-manager should only be installed in production. It is not managed inside this repository.
-
-See: https://cert-manager.io/docs/installation/helm/
+To initialize the local PostgreSQL database:
 
 ```
-helm repo add jetstack https://charts.jetstack.io
-helm repo up
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.8.0 --set installCRDs=true
+# Ensure PostgreSQL helm chart is installed (only used in development env):
+cd deploy
+make dev | k apply -l app.kubernetes.io/name=postgresql -f -
 
-# create issuers
-kubectl apply -f cert-manager/issuer-staging.yml
-kubectl apply -f cert-manager/issuer-production.yml
+kubectl port-forward dev-postgresql-0 5432
+psql -h localhost -f ../kind/bin/setup-dev-db.sql
 ```
 
-This should be sufficient for cert-manager to issue certificates automatically when the
-`tls.enabled` value is set to `true`.
+### Additional dependencies
 
-### Manual installations
-
-The following installations are not defined in this repo.
-
-- Telepresence [link](https://www.telepresence.io/docs/latest/quick-start/)
+- envfilesubst [link](https://git.netflux.io/rob/envfilesubst)

@@ -1,0 +1,12 @@
+---
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+- name: lint
+  image: golang:1.21
+  commands:
+  # TODO: make kube-linter Docker image work with Drone.
+  - go install golang.stackrox.io/kube-linter/cmd/kube-linter@latest
+  - kube-linter lint .

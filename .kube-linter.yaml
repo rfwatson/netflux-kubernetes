@@ -1,0 +1,4 @@
+checks:
+  ignorePaths:
+  - ./deploy//dev/**
+  - ./**/inflated/**

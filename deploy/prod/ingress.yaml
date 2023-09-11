@@ -4,7 +4,7 @@
 - op: add
   # https://github.com/kubernetes-sigs/kustomize/issues/1439#issuecomment-520614831
   path: /metadata/annotations/cert-manager.io~1cluster-issuer
-  value: letsencrypt-production
+  value: prod-letsencrypt
 - op: replace
   path: /spec/tls
   value:

@@ -10,8 +10,8 @@ configMapGenerator:
 - name: prometheus-server
   behavior: merge
   files:
-  - prometheus.yml=prometheus.yaml
-  - alerting_rules.yml=prometheus-alerting-rules.yaml
+  - prometheus.yml=resources/prometheus.yaml
+  - alerting_rules.yml=resources/prometheus-alerting-rules.yaml
   options:
     labels:
       app: prometheus
@@ -27,17 +27,17 @@ configMapGenerator:
   files:
   - grafana.ini=secrets/grafana-config.ini
   - datasources.yaml=secrets/grafana-datasources.yaml
-  - contactpoints.yaml=grafana-contactpoints.yaml
-  - rules.yaml=grafana-rules.yaml
+  - contactpoints.yaml=resources/grafana-contactpoints.yaml
+  - rules.yaml=resources/grafana-rules.yaml
 - name: invidious-config
   files:
-  - config.yml=invidious-config.yaml
+  - config.yml=resources/invidious-config.yaml
   options:
     labels:
       app: invidious
 - name: element-config
   files:
-  - config.json=element-config.json
+  - config.json=resources/element-config.json
   options:
     labels:
       app: element

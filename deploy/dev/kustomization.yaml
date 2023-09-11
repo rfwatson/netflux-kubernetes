@@ -21,33 +21,33 @@ configMapGenerator:
 - name: prometheus-server
   behavior: merge
   files:
-  - prometheus.yml=prometheus.yaml
-  - alerting_rules.yml=prometheus-alerting-rules.yaml
+  - prometheus.yml=resources/prometheus.yaml
+  - alerting_rules.yml=resources/prometheus-alerting-rules.yaml
   options:
     labels:
       app: prometheus
 - name: prometheus-alertmanager
   behavior: merge
   files:
-  - alertmanager.yml=prometheus-alertmanager.yaml
+  - alertmanager.yml=resources/prometheus-alertmanager.yaml
   options:
     labels:
       app: prometheus
 - name: grafana
   behavior: merge
   files:
-  - grafana.ini
-  - datasources.yaml=grafana-datasources.yaml
-  - contactpoints.yaml=grafana-contactpoints.yaml
+  - grafana.ini=resources/grafana.ini
+  - datasources.yaml=resources/grafana-datasources.yaml
+  - contactpoints.yaml=resources/grafana-contactpoints.yaml
 - name: invidious-config
   files:
-  - config.yml=invidious-config.yaml
+  - config.yml=resources/invidious-config.yaml
   options:
     labels:
       app: invidious
 - name: element-config
   files:
-  - config.json=element-config.json
+  - config.json=resources/element-config.json
   options:
     labels:
       app: element
@@ -66,8 +66,8 @@ configMapGenerator:
       app: drone
 - name: radicale-config
   files:
-  - config.toml=radicale-config.toml
-  - users=radicale-users
+  - config.toml=resources/radicale-config.toml
+  - users=resources/radicale-users
   options:
     labels:
       app: radicale
@@ -95,7 +95,7 @@ secretGenerator:
   - admin-password=testme
   - admin-email=mail@localhost
   files:
-  - config.ini=gitea-config.ini
+  - config.ini=resources/gitea-config.ini
   options:
     labels:
       app: gitea
@@ -110,9 +110,9 @@ secretGenerator:
       app: drone
 - name: synapse-config
   files:
-  - homeserver.yaml=synapse-homeserver.yaml
-  - signing.key=synapse-signing.key
-  - log.config=synapse-log.config
+  - homeserver.yaml=resources/synapse-homeserver.yaml
+  - signing.key=resources/synapse-signing.key
+  - log.config=resources/synapse-log.config
   options:
     labels:
       app: synapse

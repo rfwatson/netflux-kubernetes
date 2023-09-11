@@ -105,14 +105,14 @@ resources:
 configMapGenerator:
 - name: gitea-scripts
   files:
-  - init-directory-structure.sh=gitea-init-directory-structure.sh
-  - setup.sh=gitea-setup.sh
+  - init-directory-structure.sh=resources/gitea-init-directory-structure.sh
+  - setup.sh=resources/gitea-setup.sh
   options:
     labels:
       app: gitea
 - name: invidious-scripts
   files:
-  - init.sh=invidious-init.sh
+  - init.sh=resources/invidious-init.sh
   options:
     labels:
       app: invidious

@@ -94,7 +94,7 @@ data:
     --max-time 60 \
     -H "Accept: application/json" \
     -H "Content-Type: application/json;charset=UTF-8" \
-      "https://grafana.com/api/dashboards/1860/revisions/26/download" \
+      "https://grafana.com/api/dashboards/1860/revisions/32/download" \
       | sed '/-- .* --/! s/"datasource":.*,/"datasource": "Prometheus",/g' \
     > "/var/lib/grafana/dashboards/default/node.json"
       

@@ -44,7 +44,7 @@ dashboards:
       datasource: Prometheus
     node:
       gnetId: 1860
-      revision: 26
+      revision: 32
       datasource: Prometheus
     nginx-ingress:
       gnetId: 9614

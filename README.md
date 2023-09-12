@@ -3,7 +3,7 @@
 This repo contains Kubernetes manifests for deploying various self-hosted
 services to the `netflux.io` domain.
 
-![Me deploying my blog on Kubernetes. Probable credit @dexhorthy](https://git.netflux.io/rob/netflux-kubernetes/raw/branch/main/picture.jpg "Me deploying my blog on Kubernetes")
+![Me deploying my blog on Kubernetes. Credit @dexhorthy](https://git.netflux.io/rob/netflux-kubernetes/raw/branch/main/picture.jpg)
 
 All of the manifests are built using [Kustomize](https://kustomize.io/). I
 avoid Helm charts whenever possible, but when they're needed (Prometheus,
@@ -47,7 +47,7 @@ kube-linter lint .
 
 ## Helm charts
 
-When required, helm charts can be inflated with:
+When required, Helm charts can be inflated with:
 
 ```
 # install or update the prometheus helm chart:

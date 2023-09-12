@@ -1,0 +1,8 @@
+* linguist-detectable
+
+.* -linguist-detectable
+**/inflated/** -linguist-detectable
+**/charts/** -linguist-detectable
+**/secrets/** -linguist-detectable
+
+*.tpl linguist-language=YAML

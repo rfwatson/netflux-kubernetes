@@ -1,4 +1,4 @@
-.PHONY: dev prod inflate
+.PHONY: dev prod inflate lint
 
 dev:
 	@kubectl kustomize --enable-helm dev

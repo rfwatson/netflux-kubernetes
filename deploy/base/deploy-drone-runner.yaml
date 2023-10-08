@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: drone-runner
-        image: drone/drone-runner-kube@sha256:8fcd1ee0ddfa1b035190d4e50ff90735657f91c7e2cb8db7b7989df8de40e86e
+        image: drone/drone-runner-kube:latest
         ports:
         - name: http
           protocol: TCP

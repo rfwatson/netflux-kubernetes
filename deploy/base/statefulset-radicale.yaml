@@ -27,8 +27,8 @@ spec:
         runAsNonRoot: true
       containers:
       - name: radicale
-        image: tomsquest/docker-radicale:3.1.8.3
-        imagePullPolicy: IfNotPresent
+        image: tomsquest/docker-radicale:latest
+        imagePullPolicy: Always
         ports:
         - name: caldav
           protocol: TCP

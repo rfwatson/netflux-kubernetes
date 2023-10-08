@@ -25,7 +25,7 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
       initContainers:
-      - image: alpine/git:2.40.1
+      - image: alpine/git:latest
         imagePullPolicy: IfNotPresent
         name: init-invidious-repo
         volumeMounts:
@@ -43,7 +43,7 @@ spec:
             cpu: 500m
         securityContext:
           readOnlyRootFilesystem: true
-      - image: jbergknoff/postgresql-client@sha256:45e175ebb700cfd46e23a610477c3576550055ef40c394e663623946a5eced39
+      - image: jbergknoff/postgresql-client:latest
         imagePullPolicy: IfNotPresent
         name: init-invidious-db
         volumeMounts:
@@ -94,7 +94,7 @@ spec:
         workingDir: /data/repo
         command: ["sh", "docker/init-invidious-db.sh"]
       containers:
-      - image: quay.io/invidious/invidious:ac0c0609bb8b652e630c3603cd9dbb1c87fbdf44
+      - image: quay.io/invidious/invidious:latest
         imagePullPolicy: Always
         name: invidious
         ports:

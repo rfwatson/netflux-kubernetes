@@ -114,7 +114,7 @@ spec:
       containers:
       - name: gitea
         image: gitea/gitea:1.20.5-rootless
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - name: http
           protocol: TCP

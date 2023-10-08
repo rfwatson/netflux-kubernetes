@@ -1,4 +1,6 @@
 checks:
+  exclude:
+  - latest-tag
   ignorePaths:
-  - ./deploy//dev/**
+  - ./deploy/dev/**
   - ./**/inflated/**

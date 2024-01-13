@@ -79,6 +79,12 @@ kubectl port-forward dev-postgresql-0 5432
 psql -h localhost -f ../kind/bin/setup-dev-db.sql
 ```
 
+To connect locally to the Nginx ingress controller:
+
+```
+sudo -E kubectl port-forward dev-ingress-nginx-controller-abcdef1234-ab123 80:80 443:443 22:22
+```
+
 ### Additional dependencies
 
 - envfilesubst [link](https://git.netflux.io/rob/envfilesubst)

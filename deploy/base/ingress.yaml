@@ -5,8 +5,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 10m
     nginx.ingress.kubernetes.io/server-snippet: |
-      if ($http_user_agent ~* "BLEXBot|SemrushBot|AhrefsBot" ) {
-        return 403;
+      location = /robots.txt {
+        add_header Content-Type text/plain;
+        return 200 "User-agent: Amazonbot\nDisallow: /\n\nUser-agent: BLEXBot\nDisallow: /\n\nUser-agent: SemrushBot\nDisallow: /\n\nUser-agent: AhrefsBot\nDisallow: /\n\nUser-agent: DotBot\nDisallow: /\n\nUser-agent: BingBot\nCrawl-delay: 30\n";
       }
 spec:
   ingressClassName: nginx

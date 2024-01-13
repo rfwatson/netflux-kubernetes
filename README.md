@@ -85,6 +85,12 @@ To connect locally to the Nginx ingress controller:
 sudo -E kubectl port-forward dev-ingress-nginx-controller-abcdef1234-ab123 80:80 443:443 22:22
 ```
 
+Or
+
+```
+sudo -E kubectl port-forward $(kubectl get pods | grep "dev-ingress-nginx-controller.*Running" | awk '{print $1}') 80:80 443:443 22:22
+```
+
 ### Additional dependencies
 
 - envfilesubst [link](https://git.netflux.io/rob/envfilesubst)

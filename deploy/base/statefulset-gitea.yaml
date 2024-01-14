@@ -91,10 +91,10 @@ spec:
               key: admin-password
         resources:
           requests:
-            memory: 256Mi
+            memory: 128Mi
             cpu: 100m
           limits:
-            memory: 786Mi
+            memory: 256Mi
             cpu: 1500m
         volumeMounts:
         - mountPath: /data
@@ -143,10 +143,10 @@ spec:
           name: data
         resources:
           requests:
-            memory: 128Mi
+            memory: 256Mi
             cpu: 100m
           limits:
-            memory: 256Mi
+            memory: 512Mi
             cpu: 1500m
         livenessProbe:
           tcpSocket:

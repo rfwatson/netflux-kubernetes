@@ -1,17 +1,9 @@
 ---
-# Configure the ingress-nginx to use specific nodePorts for HTTP and HTTPS
-# traffic. This allows the cluster to route traffic to the service via port
-# mappings.
+# Add nodeports to the LoadBalancer service, this makes DigitalOcean create a
+# corresponding forwarding rule.
 #
-# TODO: use a NodePort service instead and remove the patches.
-- op: replace
-  path: /spec/ports/0/nodePort
-  value: 32048
-- op: replace
-  path: /spec/ports/1/nodePort
-  value: 32049
-# Force the ingress-nginx service to expose port 22. This allows traffic to be
-# routed to the Gitea SSH service.
+# Setting the nodePort seems to be necessary for DO to create the forwarding
+# rules.
 - op: add
   path: /spec/ports/-
   value:

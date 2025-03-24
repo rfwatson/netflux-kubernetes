@@ -30,7 +30,7 @@ spec:
         runAsGroup: 1000
       initContainers:
       - name: init-gitea
-        image: gitea/gitea:1.23.0-rootless
+        image: gitea/gitea:1.23.5-rootless
         imagePullPolicy: IfNotPresent
         command: ["/usr/sbin/init-directory-structure.sh"]
         env:
@@ -62,7 +62,7 @@ spec:
         securityContext:
           readOnlyRootFilesystem: true
       - name: setup-gitea
-        image: gitea/gitea:1.23.0-rootless
+        image: gitea/gitea:1.23.5-rootless
         imagePullPolicy: IfNotPresent
         command: ["/usr/sbin/setup.sh"]
         env:
@@ -113,7 +113,7 @@ spec:
           readOnlyRootFilesystem: true
       containers:
       - name: gitea
-        image: gitea/gitea:1.23.0-rootless
+        image: gitea/gitea:1.23.5-rootless
         imagePullPolicy: IfNotPresent
         ports:
         - name: http

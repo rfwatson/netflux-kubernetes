@@ -1,0 +1,6 @@
+# Add additional configmap setting required since ingress-nginx 1.12.0.
+# https://github.com/kubernetes/ingress-nginx/issues/13104
+- op: add
+  path: /data
+  value: 
+    annotations-risk-level: Critical

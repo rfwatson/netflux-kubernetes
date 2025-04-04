@@ -135,6 +135,11 @@ patches:
   path: deploy-ingress-nginx.yaml
 
 - target:
+    kind: ConfigMap
+    name: ingress-nginx-controller
+  path: config-map-ingress-nginx.yaml
+
+- target:
     kind: Deployment
     name: external-dns
   path: deploy-external-dns.yaml

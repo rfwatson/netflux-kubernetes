@@ -8,6 +8,9 @@
 - op: add
   path: /spec/template/spec/containers/0/args/-
   value: "--tcp-services-configmap=$(POD_NAMESPACE)/prod-ingress-nginx-tcp-services"
+- op: add
+  path: /spec/template/spec/containers/0/args/-
+  value: "--default-ssl-certificate=$(POD_NAMESPACE)/prod-ingress-tls"
 - op: replace
   path: /spec/template/spec/volumes/0/secret/secretName
   value: prod-ingress-nginx-admission

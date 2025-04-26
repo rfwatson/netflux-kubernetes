@@ -1,0 +1,16 @@
+---
+- hosts: ovh1
+  become: true
+
+  tasks:
+  - name: Ensure curl is installed (dependency)
+    apt:
+      name: curl
+      state: present
+      update_cache: yes
+
+  - name: Install k3s
+    shell: |
+      curl -sfL https://get.k3s.io | sh -
+    args:
+      creates: /usr/local/bin/k3s

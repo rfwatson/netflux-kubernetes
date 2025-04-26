@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+  - secrets.yml
+
+  vars:
+    username: rob
+    ssh_public_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILFA4qzpM12PphDNlACS9F8oJpDVGxNanMdKfnokN30F rob@rob-x1"
+
+  tasks:
+  - name: Ensure group exists
+    group:
+      name: "{{ username }}"
+      state: present
+
+  - name: Create user and add to group
+    user:
+      name: "{{ username }}"
+      password: "{{ rob_password_hash }}"
+      group: "{{ username }}"
+      create_home: yes
+      shell: /bin/bash
+      groups: sudo
+      append: yes
+
+  - name: Set authorized SSH key
+    authorized_key:
+      user: "{{ username }}"
+      state: present
+      key: "{{ ssh_public_key }}"

@@ -146,7 +146,7 @@ spec:
             memory: 256Mi
             cpu: 100m
           limits:
-            memory: 512Mi
+            memory: 1024Mi
             cpu: 1500m
         livenessProbe:
           tcpSocket:

@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: ingress
   annotations:
-    cert-manager.io/cluster-issuer: prod-letsencrypt
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
     nginx.ingress.kubernetes.io/server-snippet: |
       location = /robots.txt {
@@ -11,9 +10,20 @@ metadata:
         return 200 "User-agent: Amazonbot\nDisallow: /\n\nUser-agent: BLEXBot\nDisallow: /\n\nUser-agent: SemrushBot\nDisallow: /\n\nUser-agent: AhrefsBot\nDisallow: /\n\nUser-agent: DotBot\nDisallow: /\n\nUser-agent: MJ12bot\nDisallow: /\n\nUser-agent: PetalBot\nDisallow: /\n\nUser-agent: ImagesiftBot\nDisallow: /\n\nUser-agent: BingBot\nCrawl-delay: 30\n";
 
       }
+
 spec:
-  ingressClassName: prod-nginx
+  rules:
+  - host: k3s.netflux.io
+    http:
+      paths:
+      - path: /test
+        pathType: Prefix
+        backend:
+          service:
+            name: whoami
+            port:
+              number: 5678
   tls:
-    hosts:
+    - hosts:
       - k3s.netflux.io
-    secretName: prod-ingress-tls
+      secretName: prod-ingress-tls

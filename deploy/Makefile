@@ -1,4 +1,4 @@
-.PHONY: dev prod prod-ovh inflate
+.PHONY: dev prod prod-ovh cert-manager inflate
 
 dev:
 	@kubectl kustomize --enable-helm dev
@@ -10,6 +10,9 @@ prod: load-prod-env
 prod-ovh:
 	# go install https://git.netflux.io/rob/envfilesubst@latest
 	@kubectl kustomize --enable-helm prod-ovh
+
+cert-manager:
+	@kubectl kustomize --enable-helm cert-manager
 
 load-prod-env:
 	$(eval include prod/secrets/env)

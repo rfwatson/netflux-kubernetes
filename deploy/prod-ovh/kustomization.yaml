@@ -2,22 +2,6 @@
 namePrefix: prod-
 resources:
 - ../minimal-base
-# cert-manager:
-- inflated/cert-manager/templates/serviceaccount.yaml
-- inflated/cert-manager/templates/cainjector-service.yaml
-- inflated/cert-manager/templates/crds.yaml
-- inflated/cert-manager/templates/webhook-rbac.yaml
-- inflated/cert-manager/templates/deployment.yaml
-- inflated/cert-manager/templates/cainjector-serviceaccount.yaml
-- inflated/cert-manager/templates/webhook-serviceaccount.yaml
-- inflated/cert-manager/templates/webhook-mutating-webhook.yaml
-- inflated/cert-manager/templates/cainjector-deployment.yaml
-- inflated/cert-manager/templates/startupapicheck-rbac.yaml
-- inflated/cert-manager/templates/startupapicheck-serviceaccount.yaml
-- inflated/cert-manager/templates/cainjector-rbac.yaml
-- inflated/cert-manager/templates/service.yaml
-- inflated/cert-manager/templates/webhook-service.yaml
-- inflated/cert-manager/templates/webhook-validating-webhook.yaml
-- inflated/cert-manager/templates/rbac.yaml
-- inflated/cert-manager/templates/startupapicheck-job.yaml
-- inflated/cert-manager/templates/webhook-deployment.yaml
+- clusterissuer.yaml
+- cert-ingress-tls.yaml
+- ingress.yaml

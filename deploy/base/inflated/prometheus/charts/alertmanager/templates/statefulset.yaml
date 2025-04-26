@@ -5,14 +5,16 @@ kind: StatefulSet
 metadata:
   name: prometheus-alertmanager
   labels:
-    helm.sh/chart: alertmanager-0.33.1
+    helm.sh/chart: alertmanager-1.16.1
     app.kubernetes.io/name: alertmanager
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "v0.25.0"
+    app.kubernetes.io/version: "v0.28.1"
     app.kubernetes.io/managed-by: Helm
   namespace: default
 spec:
   replicas: 1
+  minReadySeconds: 0
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/name: alertmanager
@@ -24,7 +26,7 @@ spec:
         app.kubernetes.io/name: alertmanager
         app.kubernetes.io/instance: prometheus
       annotations:
-        checksum/config: 25406287f5528bc29842743c5931229856284a49f3871c27ceeac453455b898e
+        checksum/config: 86bff46324003d97b5e3fb2f03e7e5f42f6d32d8e8463340e3813a5836f1cfe8
     spec:
       automountServiceAccountToken: true
       serviceAccountName: prometheus-alertmanager
@@ -39,7 +41,7 @@ spec:
             runAsGroup: 65534
             runAsNonRoot: true
             runAsUser: 65534
-          image: "quay.io/prometheus/alertmanager:v0.25.0"
+          image: "quay.io/prometheus/alertmanager:v0.28.1"
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_IP

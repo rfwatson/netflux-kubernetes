@@ -7,9 +7,8 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: v2.45.0
-    helm.sh/chart: prometheus-23.1.0
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: v3.3.0
+    helm.sh/chart: prometheus-27.11.0
     app.kubernetes.io/part-of: prometheus
   name: prometheus-server
 rules:
@@ -34,6 +33,14 @@ rules:
     resources:
       - ingresses/status
       - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "discovery.k8s.io"
+    resources:
+      - endpointslices
     verbs:
       - get
       - list

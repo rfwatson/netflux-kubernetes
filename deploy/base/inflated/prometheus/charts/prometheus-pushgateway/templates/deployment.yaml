@@ -4,10 +4,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    helm.sh/chart: prometheus-pushgateway-2.4.0
+    helm.sh/chart: prometheus-pushgateway-3.1.0
     app.kubernetes.io/name: prometheus-pushgateway
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "v1.6.0"
+    app.kubernetes.io/version: "v1.11.0"
     app.kubernetes.io/managed-by: Helm
   name: prometheus-prometheus-pushgateway
   namespace: default
@@ -22,16 +22,17 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: prometheus-pushgateway-2.4.0
+        helm.sh/chart: prometheus-pushgateway-3.1.0
         app.kubernetes.io/name: prometheus-pushgateway
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "v1.6.0"
+        app.kubernetes.io/version: "v1.11.0"
         app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: prometheus-prometheus-pushgateway
+      automountServiceAccountToken: true
       containers:
         - name: pushgateway
-          image: "quay.io/prometheus/pushgateway:v1.6.0"
+          image: "quay.io/prometheus/pushgateway:v1.11.0"
           imagePullPolicy: IfNotPresent
           ports:
             - name: metrics

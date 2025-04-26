@@ -6,10 +6,10 @@ metadata:
   annotations:
     prometheus.io/probe: pushgateway
   labels:
-    helm.sh/chart: prometheus-pushgateway-2.4.0
+    helm.sh/chart: prometheus-pushgateway-3.1.0
     app.kubernetes.io/name: prometheus-pushgateway
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "v1.6.0"
+    app.kubernetes.io/version: "v1.11.0"
     app.kubernetes.io/managed-by: Helm
   name: prometheus-prometheus-pushgateway
   namespace: default

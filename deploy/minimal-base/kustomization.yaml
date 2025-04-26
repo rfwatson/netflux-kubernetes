@@ -11,3 +11,6 @@ resources:
 - inflated/metrics-server/templates/service.yaml
 - inflated/metrics-server/templates/clusterrole.yaml
 - inflated/metrics-server/templates/clusterrolebinding.yaml
+
+- deploy-netflux-homepage.yaml
+- svc-netflux-homepage.yaml

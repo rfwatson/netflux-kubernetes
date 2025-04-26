@@ -1,4 +1,4 @@
-.PHONY: dev prod inflate
+.PHONY: dev prod prod-ovh inflate
 
 dev:
 	@kubectl kustomize --enable-helm dev
@@ -6,6 +6,10 @@ dev:
 prod: load-prod-env
 	# go install https://git.netflux.io/rob/envfilesubst@latest
 	@kubectl kustomize --enable-helm prod | envfilesubst -f prod/secrets/env
+
+prod-ovh:
+	# go install https://git.netflux.io/rob/envfilesubst@latest
+	@kubectl kustomize --enable-helm prod-ovh
 
 load-prod-env:
 	$(eval include prod/secrets/env)

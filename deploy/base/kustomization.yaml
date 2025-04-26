@@ -1,6 +1,26 @@
 ---
 resources:
 - ../minimal-base
+# ingress-nginx
+- inflated/ingress-nginx/templates/controller-deployment.yaml
+- inflated/ingress-nginx/templates/controller-serviceaccount.yaml
+- inflated/ingress-nginx/templates/controller-rolebinding.yaml
+- inflated/ingress-nginx/templates/controller-ingressclass.yaml
+- inflated/ingress-nginx/templates/controller-service-metrics.yaml
+- inflated/ingress-nginx/templates/clusterrole.yaml
+- inflated/ingress-nginx/templates/controller-service.yaml
+- inflated/ingress-nginx/templates/controller-service-webhook.yaml
+- inflated/ingress-nginx/templates/controller-role.yaml
+- inflated/ingress-nginx/templates/controller-configmap.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/job-patch/serviceaccount.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/job-patch/job-createSecret.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/job-patch/job-patchWebhook.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/job-patch/rolebinding.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/job-patch/role.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/job-patch/clusterrole.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/job-patch/clusterrolebinding.yaml
+- inflated/ingress-nginx/templates/admission-webhooks/validating-webhook.yaml
+- inflated/ingress-nginx/templates/clusterrolebinding.yaml
 # Prometheus
 - inflated/prometheus/charts/prometheus-node-exporter/templates/daemonset.yaml
 - inflated/prometheus/charts/prometheus-node-exporter/templates/serviceaccount.yaml

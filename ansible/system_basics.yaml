@@ -41,32 +41,14 @@
     command: sshd -t
     changed_when: false
 
-  - name: Create iptables rules file
-    copy:
-      dest: /etc/iptables.rules
-      content: |
-        *filter
-        :INPUT DROP [0:0]
-        :FORWARD DROP [0:0]
-        :OUTPUT ACCEPT [0:0]
-        -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-        -A INPUT -p tcp --dport 80 -j ACCEPT
-        -A INPUT -p tcp --dport 443 -j ACCEPT
-        -A INPUT -p tcp --dport 7511 -j ACCEPT
-        -A INPUT -i lo -j ACCEPT
-        COMMIT
-
-  - name: Apply iptables rules
-    shell: iptables-restore < /etc/iptables.rules
-    changed_when: false
-
-  - name: Ensure iptables rules are loaded on boot (Debian/Ubuntu)
-    copy:
-      dest: /etc/network/if-pre-up.d/iptablesload
-      content: |
-        #!/bin/sh
-        iptables-restore < /etc/iptables.rules
-      mode: '0755'
+  - name: Open firewall ports
+    iptables:
+      chain: INPUT
+      protocol: tcp
+      destination_port: "{{ item }}"
+      jump: ACCEPT
+      state: present
+    loop: "{{ firewall_ports }}"
 
   - name: Ensure fail2ban is started and enabled
     service:

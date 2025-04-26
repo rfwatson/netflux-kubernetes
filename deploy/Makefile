@@ -17,5 +17,6 @@ load-prod-env:
 
 # Usage: make inflate name=prometheus chart=prometheus-community/prometheus [base=dev]
 base=base
+namespace=default
 inflate:
-	@bin/helm-chart-inflate.sh $(name) $(chart) $(base)
+	@bin/helm-chart-inflate.sh $(name) $(chart) $(base) $(namespace)

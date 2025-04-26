@@ -6,11 +6,10 @@ metadata:
   name: grafana
   namespace: default
   labels:
-    helm.sh/chart: grafana-7.3.8
+    helm.sh/chart: grafana-8.13.1
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: grafana
-    app.kubernetes.io/version: "10.4.1"
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "11.6.1"
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -23,17 +22,20 @@ spec:
   template:
     metadata:
       labels:
+        helm.sh/chart: grafana-8.13.1
         app.kubernetes.io/name: grafana
         app.kubernetes.io/instance: grafana
+        app.kubernetes.io/version: "11.6.1"
       annotations:
         checksum/config: d247383d611034ff04b37cc27677f166bc48f1eb6f5bb108696cb8a488b1c954
-        checksum/dashboards-json-config: 6cafd198a0669840a2973e251c2a9a6dade8318043557e28a0c85c0de28e3b46
-        checksum/sc-dashboard-provider-config: 593c0a8778b83f11fe80ccb21dfb20bc46705e2be3178df1dc4c89d164c8cd9c
+        checksum/dashboards-json-config: 495e1c22f129c999f0023fc9328b482ab76cc69ab7db8fd42f6b03604712e205
+        checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
     spec:
       
       serviceAccountName: grafana
       automountServiceAccountToken: true
+      shareProcessNamespace: false
       securityContext:
         fsGroup: 472
         runAsGroup: 472
@@ -41,7 +43,7 @@ spec:
         runAsUser: 472
       initContainers:
         - name: download-dashboards
-          image: "docker.io/curlimages/curl:7.85.0"
+          image: "docker.io/curlimages/curl:8.9.1"
           imagePullPolicy: IfNotPresent
           command: ["/bin/sh"]
           args: [ "-c", "mkdir -p /var/lib/grafana/dashboards/default && /bin/sh -x /etc/grafana/download_dashboards.sh" ]
@@ -62,7 +64,7 @@ spec:
       enableServiceLinks: true
       containers:
         - name: grafana
-          image: "docker.io/grafana/grafana:10.4.1"
+          image: "docker.io/grafana/grafana:11.6.1"
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
@@ -99,6 +101,9 @@ spec:
             - name: gossip-udp
               containerPort: 9094
               protocol: UDP
+            - name: profiling
+              containerPort: 6060
+              protocol: TCP
           env:
             - name: POD_IP
               valueFrom:

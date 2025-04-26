@@ -11,3 +11,4 @@ spec:
   commonName: k3s.netflux.io
   dnsNames:
     - k3s.netflux.io
+    - grafana-k3s.netflux.io

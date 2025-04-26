@@ -44,16 +44,6 @@ resources:
 - inflated/prometheus/templates/deploy.yaml
 - inflated/prometheus/templates/clusterrolebinding.yaml
 - inflated/prometheus/templates/pvc.yaml
-# Grafana
-- inflated/grafana/templates/serviceaccount.yaml
-- inflated/grafana/templates/dashboards-json-configmap.yaml
-- inflated/grafana/templates/rolebinding.yaml
-- inflated/grafana/templates/deployment.yaml
-- inflated/grafana/templates/role.yaml
-- inflated/grafana/templates/service.yaml
-- inflated/grafana/templates/clusterrole.yaml
-- inflated/grafana/templates/configmap.yaml
-- inflated/grafana/templates/clusterrolebinding.yaml
 # kubernetes-replicator
 - inflated/kubernetes-replicator/templates/deployment.yaml
 - inflated/kubernetes-replicator/templates/rbac.yaml

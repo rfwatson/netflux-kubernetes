@@ -12,5 +12,16 @@ resources:
 - inflated/metrics-server/templates/clusterrole.yaml
 - inflated/metrics-server/templates/clusterrolebinding.yaml
 
+# Grafana
+- inflated/grafana/templates/serviceaccount.yaml
+- inflated/grafana/templates/dashboards-json-configmap.yaml
+- inflated/grafana/templates/rolebinding.yaml
+- inflated/grafana/templates/deployment.yaml
+- inflated/grafana/templates/role.yaml
+- inflated/grafana/templates/service.yaml
+- inflated/grafana/templates/clusterrole.yaml
+- inflated/grafana/templates/configmap.yaml
+- inflated/grafana/templates/clusterrolebinding.yaml
+
 - deploy-netflux-homepage.yaml
 - svc-netflux-homepage.yaml

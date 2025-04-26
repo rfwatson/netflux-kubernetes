@@ -30,7 +30,18 @@ spec:
             name: netflux-homepage
             port:
               name: http
+  - host: grafana-k3s.netflux.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              name: service
   tls:
     - hosts:
       - k3s.netflux.io
+      - grafana-k3s.netflux.io
       secretName: prod-ingress-tls

@@ -1,0 +1,85 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+    changed_when: false
+
+  - name: Install required packages
+    apt:
+      name:
+      - fail2ban
+      - iptables
+      state: present
+
+  - name: Ensure SSH port is set to 7511 in /etc/ssh/sshd_config
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^#?Port '
+      line: 'Port 7511'
+      state: present
+      backup: yes
+    notify: Restart SSH
+
+  - name: Check if ssh.socket unit exists
+    stat:
+      path: /usr/lib/systemd/system/ssh.socket
+    register: ssh_socket_unit
+
+  - name: Set ListenStream to 7511 in ssh.socket
+    lineinfile:
+      path: /usr/lib/systemd/system/ssh.socket
+      regexp: '^ListenStream='
+      line: 'ListenStream=7511'
+      backup: yes
+    when: ssh_socket_unit.stat.exists
+    notify: Reload systemd and restart ssh.socket
+
+  - name: Test sshd configuration
+    command: sshd -t
+    changed_when: false
+
+  - name: Create iptables rules file
+    copy:
+      dest: /etc/iptables.rules
+      content: |
+        *filter
+        :INPUT DROP [0:0]
+        :FORWARD DROP [0:0]
+        :OUTPUT ACCEPT [0:0]
+        -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+        -A INPUT -p tcp --dport 80 -j ACCEPT
+        -A INPUT -p tcp --dport 443 -j ACCEPT
+        -A INPUT -p tcp --dport 7511 -j ACCEPT
+        -A INPUT -i lo -j ACCEPT
+        COMMIT
+
+  - name: Apply iptables rules
+    shell: iptables-restore < /etc/iptables.rules
+    changed_when: false
+
+  - name: Ensure iptables rules are loaded on boot (Debian/Ubuntu)
+    copy:
+      dest: /etc/network/if-pre-up.d/iptablesload
+      content: |
+        #!/bin/sh
+        iptables-restore < /etc/iptables.rules
+      mode: '0755'
+
+  - name: Ensure fail2ban is started and enabled
+    service:
+      name: fail2ban
+      state: started
+      enabled: yes
+
+  handlers:
+    - name: Reload systemd and restart ssh.socket
+      shell: |
+        systemctl daemon-reload
+        systemctl restart ssh.socket
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted

@@ -1,0 +1,9 @@
+apiVersion: 1
+contactPoints:
+- name: Prometheus Alertmanager
+  receivers:
+  - uid: prometheus-alertmanager-1
+    type: prometheus-alertmanager
+    disableResolveMessage: false
+    settings:
+      url: http://prod-prometheus-alertmanager:9093

@@ -30,3 +30,45 @@ resources:
 - clusterissuer.yaml
 - cert-ingress-tls.yaml
 - ingress.yaml
+
+configMapGenerator:
+- name: prometheus-server
+  namespace: prometheus
+  behavior: merge
+  files:
+  - prometheus.yml=resources/prometheus.yaml
+  - alerting_rules.yml=resources/prometheus-alerting-rules.yaml
+  options:
+    labels:
+      app: prometheus
+- name: prometheus-alertmanager
+  namespace: prometheus
+  behavior: merge
+  files:
+  - alertmanager.yml=secrets/prometheus-alertmanager.yaml
+  options:
+    labels:
+      app: prometheus
+- name: grafana
+  behavior: merge
+  files:
+  - grafana.ini=secrets/grafana-config.ini
+  - datasources.yaml=secrets/grafana-datasources.yaml
+  - contactpoints.yaml=resources/grafana-contactpoints.yaml
+  - rules.yaml=resources/grafana-rules.yaml
+
+secretGenerator:
+- name: prometheus-credentials
+  files:
+  - secrets/exporter-password
+- name: grafana-credentials
+  files:
+  - admin-user=secrets/grafana-admin-user
+  - admin-password=secrets/grafana-admin-password
+
+patches:
+# Patch Grafana deployment to inject PostgreSQL credentials:
+# - target:
+#     kind: Deployment
+#     name: grafana
+#   path: deploy-grafana.yaml

@@ -1,4 +1,4 @@
-.PHONY: dev prod prod-ovh cert-manager inflate
+.PHONY: dev prod prod-ovh cert-manager tailscale-operator inflate
 
 dev:
 	@kubectl kustomize --enable-helm dev
@@ -13,6 +13,9 @@ prod-ovh:
 
 cert-manager:
 	@kubectl kustomize --enable-helm cert-manager
+
+tailscale-operator:
+	@kubectl kustomize --enable-helm tailscale-operator
 
 load-prod-env:
 	$(eval include prod/secrets/env)

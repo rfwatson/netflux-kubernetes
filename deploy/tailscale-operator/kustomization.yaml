@@ -1,0 +1,14 @@
+---
+# Important: namePrefix must be blank.
+resources:
+- inflated/tailscale-operator/templates/apiserverproxy-rbac.yaml
+- inflated/tailscale-operator/templates/proxyclass.yaml
+- inflated/tailscale-operator/templates/ingressclass.yaml
+- inflated/tailscale-operator/templates/proxy-rbac.yaml
+- inflated/tailscale-operator/templates/operator-rbac.yaml
+- inflated/tailscale-operator/templates/deployment.yaml
+- inflated/tailscale-operator/templates/oauth-secret.yaml
+- inflated/tailscale-operator/templates/proxygroup.yaml
+- inflated/tailscale-operator/templates/dnsconfig.yaml
+- inflated/tailscale-operator/templates/recorder.yaml
+- inflated/tailscale-operator/templates/connector.yaml

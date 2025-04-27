@@ -62,9 +62,6 @@ resources:
 - deploy-element.yaml
 - svc-element.yaml
 
-- statefulset-gitea.yaml
-- svc-gitea.yaml
-
 - deploy-drone.yaml
 - svc-drone.yaml
 - deploy-drone-runner.yaml
@@ -81,13 +78,6 @@ resources:
 - svc-solar-toolkit-gateway.yaml
 
 configMapGenerator:
-- name: gitea-scripts
-  files:
-  - init-directory-structure.sh=resources/gitea-init-directory-structure.sh
-  - setup.sh=resources/gitea-setup.sh
-  options:
-    labels:
-      app: gitea
 - name: invidious-scripts
   files:
   - init.sh=resources/invidious-init.sh

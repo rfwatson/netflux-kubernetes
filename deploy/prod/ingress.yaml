@@ -12,7 +12,6 @@
       - grafana.netflux.io
       - tube.netflux.io
       - element.netflux.io
-      - git.netflux.io
       - drone.netflux.io
       - synapse.netflux.io
       - netflux.io
@@ -28,9 +27,6 @@
 - op: replace
   path: /spec/rules/2/host
   value: element.netflux.io
-- op: replace
-  path: /spec/rules/3/host
-  value: git.netflux.io
 - op: replace
   path: /spec/rules/4/host
   value: drone.netflux.io

@@ -14,3 +14,49 @@
       curl -sfL https://get.k3s.io | sh -
     args:
       creates: /usr/local/bin/k3s
+
+  # Open port 22 on Traefik. This is the official k3s way to do it - deploy a
+  # HelmChartConfig resource - but it can't easily be provisioned with
+  # kustomize for the usual namePrefix reasons.
+  #
+  # If traefik upgrade fails because CRDs are missing, see:
+  # https://github.com/k3s-io/k3s/issues/9534#issuecomment-1958116409
+  - name: Deploy Traefik HelmChart manifest with SSH entrypoint for k3s
+    become: true
+    ansible.builtin.template:
+      src: templates/helm-chart-traefik-gitea.yaml
+      dest: /var/lib/rancher/k3s/server/manifests/traefik-gitea.yaml
+      mode: 0644
+
+  - name: Get Traefik service
+    kubernetes.core.k8s_info:
+      api_version: v1
+      kind: Service
+      namespace: kube-system
+      name: traefik
+      kubeconfig: "~/.kube/config-ovh" # a bit brittle but ensures the correct cluster is used
+    delegate_to: localhost
+    become: false
+    register: traefik_service
+
+  - name: Expose SSH port 22 on Traefik service if not present
+    kubernetes.core.k8s_json_patch:
+      api_version: v1
+      kind: Service
+      name: traefik
+      namespace: kube-system
+      kubeconfig: "~/.kube/config-ovh" # see comment above
+      patch:
+        - op: add
+          path: /spec/ports/-
+          value:
+            name: ssh
+            port: 22
+            protocol: TCP
+            targetPort: 22
+    delegate_to: localhost
+    become: false
+    when: >
+      traefik_service.resources[0].spec.ports |
+      selectattr('port', 'equalto', 22) | list | length == 0
+    run_once: true

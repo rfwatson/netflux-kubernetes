@@ -32,7 +32,19 @@ resources:
 - svc-db.yaml
 - ingress.yaml
 
+- statefulset-gitea.yaml
+- svc-gitea.yaml
+- ingress-route-gitea-ssh.yaml
+
+
 configMapGenerator:
+- name: gitea-scripts
+  files:
+  - init-directory-structure.sh=resources/gitea-init-directory-structure.sh
+  - setup.sh=resources/gitea-setup.sh
+  options:
+    labels:
+      app: gitea
 - name: prometheus-server
   namespace: prometheus
   behavior: merge
@@ -67,6 +79,15 @@ secretGenerator:
   files:
   - admin-user=secrets/grafana-admin-user
   - admin-password=secrets/grafana-admin-password
+- name: gitea-config
+  files:
+  - admin-username=secrets/gitea-admin-username
+  - admin-password=secrets/gitea-admin-password
+  - admin-email=secrets/gitea-admin-email
+  - config.ini=secrets/gitea-config.ini
+  options:
+    labels:
+      app: gitea
 
 patches:
 # Patch prometheus-server pod to mount the secrets volume.

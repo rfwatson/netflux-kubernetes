@@ -32,6 +32,16 @@ spec:
             name: grafana
             port:
               name: service
+  - host: git.netflux.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gitea
+            port:
+              name: http
   tls:
     - hosts:
       - k3s.netflux.io

@@ -6,4 +6,4 @@ contactPoints:
     type: prometheus-alertmanager
     disableResolveMessage: false
     settings:
-      url: http://prod-prometheus-alertmanager:9093
+      url: http://prod-prometheus-alertmanager.prometheus:9093

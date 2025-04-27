@@ -69,7 +69,7 @@ secretGenerator:
 
 patches:
 # Patch Grafana deployment to inject PostgreSQL credentials:
-# - target:
-#     kind: Deployment
-#     name: grafana
-#   path: deploy-grafana.yaml
+- target:
+    kind: Deployment
+    name: grafana
+  path: deploy-grafana.yaml

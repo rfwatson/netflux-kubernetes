@@ -27,6 +27,19 @@ resources:
 - inflated/prometheus/templates/clusterrolebinding.yaml
 - inflated/prometheus/templates/pvc.yaml
 
+# Tailscale
+- inflated/tailscale-operator/templates/apiserverproxy-rbac.yaml
+- inflated/tailscale-operator/templates/connector.yaml
+- inflated/tailscale-operator/templates/deployment.yaml
+- inflated/tailscale-operator/templates/dnsconfig.yaml
+- inflated/tailscale-operator/templates/ingressclass.yaml
+- inflated/tailscale-operator/templates/oauth-secret.yaml
+- inflated/tailscale-operator/templates/operator-rbac.yaml
+- inflated/tailscale-operator/templates/proxy-rbac.yaml
+- inflated/tailscale-operator/templates/proxyclass.yaml
+- inflated/tailscale-operator/templates/proxygroup.yaml
+- inflated/tailscale-operator/templates/recorder.yaml
+
 - clusterissuer.yaml
 - cert-ingress-tls.yaml
 - ingress.yaml

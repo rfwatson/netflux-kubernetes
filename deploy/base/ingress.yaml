@@ -4,12 +4,12 @@ metadata:
   name: ingress
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location = /robots.txt {
-        add_header Content-Type text/plain;
-        return 200 "User-agent: Amazonbot\nDisallow: /\n\nUser-agent: BLEXBot\nDisallow: /\n\nUser-agent: SemrushBot\nDisallow: /\n\nUser-agent: AhrefsBot\nDisallow: /\n\nUser-agent: DotBot\nDisallow: /\n\nUser-agent: MJ12bot\nDisallow: /\n\nUser-agent: PetalBot\nDisallow: /\n\nUser-agent: ImagesiftBot\nDisallow: /\n\nUser-agent: BingBot\nCrawl-delay: 30\n";
+    # nginx.ingress.kubernetes.io/server-snippet: |
+    #   location = /robots.txt {
+    #     add_header Content-Type text/plain;
+    #     return 200 "User-agent: Amazonbot\nDisallow: /\n\nUser-agent: BLEXBot\nDisallow: /\n\nUser-agent: SemrushBot\nDisallow: /\n\nUser-agent: AhrefsBot\nDisallow: /\n\nUser-agent: DotBot\nDisallow: /\n\nUser-agent: MJ12bot\nDisallow: /\n\nUser-agent: PetalBot\nDisallow: /\n\nUser-agent: ImagesiftBot\nDisallow: /\n\nUser-agent: BingBot\nCrawl-delay: 30\n";
 
-      }
+    #   }
 spec:
   ingressClassName: nginx
   # NOTE: overlays depend on the order of rule entries.

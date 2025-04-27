@@ -71,9 +71,6 @@ resources:
 - statefulset-synapse.yaml
 - svc-synapse.yaml
 
-- statefulset-radicale.yaml
-- svc-radicale.yaml
-
 - deploy-solar-toolkit-gateway.yaml
 - svc-solar-toolkit-gateway.yaml
 

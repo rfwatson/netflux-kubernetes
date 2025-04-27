@@ -16,5 +16,4 @@ spec:
     - git.netflux.io
     - grafana.netflux.io
     - netflux.io
-    - caldav-k3s.netflux.io
     - caldav.netflux.io

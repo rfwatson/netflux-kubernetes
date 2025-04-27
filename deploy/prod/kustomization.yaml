@@ -52,13 +52,6 @@ configMapGenerator:
   options:
     labels:
       app: drone
-- name: radicale-config
-  files:
-  - config.toml=secrets/radicale-config.toml
-  - users=secrets/radicale-users
-  options:
-    labels:
-      app: radicale
 secretGenerator:
 - name: prometheus-credentials
   files:

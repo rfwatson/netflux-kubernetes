@@ -34,7 +34,8 @@ resources:
 
 - statefulset-gitea.yaml
 - svc-gitea.yaml
-- ingress-route-gitea-ssh.yaml
+- traefik-ingress-route-gitea-ssh.yaml
+- traefik-middleware-ssl-redirect.yaml
 
 - statefulset-radicale.yaml
 - svc-radicale.yaml

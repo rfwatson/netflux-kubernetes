@@ -60,6 +60,7 @@ configMapGenerator:
 
 secretGenerator:
 - name: prometheus-credentials
+  namespace: prometheus
   files:
   - secrets/exporter-password
 - name: grafana-credentials
@@ -68,6 +69,25 @@ secretGenerator:
   - admin-password=secrets/grafana-admin-password
 
 patches:
+# Patch prometheus-server pod to mount the secrets volume.
+- target:
+    kind: Deployment
+    name: prometheus-server
+    namespace: prometheus
+  patch: |-
+    - op: add
+      path: /spec/template/spec/volumes/-
+      value:
+        secret:
+          secretName: prod-prometheus-credentials
+        name: secrets-volume
+    - op: add
+      path: /spec/template/spec/containers/1/volumeMounts/-
+      value:
+        mountPath: /etc/secrets
+        name: secrets-volume
+        readOnly: true
+
 # Patch Grafana deployment to inject PostgreSQL credentials:
 - target:
     kind: Deployment

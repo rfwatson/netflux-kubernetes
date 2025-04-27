@@ -318,7 +318,7 @@ scrape_configs:
   tls_config:
     insecure_skip_verify: true
   static_configs:
-    - targets: ["prod-db:9100", "prod-db:9187"]
+    - targets: ["prod-db.default:9100", "prod-db.default:9187"]
 alerting:
   alertmanagers:
   - kubernetes_sd_configs:

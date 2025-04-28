@@ -1,17 +1,6 @@
 # Minimal version of base/kustomization.yml while migrating.
 ---
 resources:
-# metrics-server
-- inflated/metrics-server/templates/serviceaccount.yaml
-- inflated/metrics-server/templates/clusterrolebinding-auth-delegator.yaml
-- inflated/metrics-server/templates/rolebinding.yaml
-- inflated/metrics-server/templates/deployment.yaml
-- inflated/metrics-server/templates/apiservice.yaml
-- inflated/metrics-server/templates/clusterrole-aggregated-reader.yaml
-- inflated/metrics-server/templates/service.yaml
-- inflated/metrics-server/templates/clusterrole.yaml
-- inflated/metrics-server/templates/clusterrolebinding.yaml
-
 # Grafana
 - inflated/grafana/templates/serviceaccount.yaml
 - inflated/grafana/templates/dashboards-json-configmap.yaml

@@ -54,29 +54,8 @@ resources:
 - inflated/prometheus/templates/deploy.yaml
 - inflated/prometheus/templates/clusterrolebinding.yaml
 - inflated/prometheus/templates/pvc.yaml
-# kubernetes-replicator
-- inflated/kubernetes-replicator/templates/deployment.yaml
-- inflated/kubernetes-replicator/templates/rbac.yaml
-# external-dns
-- inflated/external-dns/templates/serviceaccount.yaml
-- inflated/external-dns/templates/deployment.yaml
-- inflated/external-dns/templates/service.yaml
-- inflated/external-dns/templates/clusterrole.yaml
-- inflated/external-dns/templates/clusterrolebinding.yaml
 
 - ingress.yaml
-
-- deploy-invidious.yaml
-- svc-invidious.yaml
-
-- deploy-element.yaml
-- svc-element.yaml
-
-- deploy-drone.yaml
-- svc-drone.yaml
-- deploy-drone-runner.yaml
-- role-drone-runner.yaml
-- rolebinding-drone-runner.yaml
 
 - statefulset-synapse.yaml
 - svc-synapse.yaml

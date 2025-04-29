@@ -31,29 +31,6 @@ resources:
 - inflated/ingress-nginx/templates/admission-webhooks/job-patch/clusterrolebinding.yaml
 - inflated/ingress-nginx/templates/admission-webhooks/validating-webhook.yaml
 - inflated/ingress-nginx/templates/clusterrolebinding.yaml
-# Prometheus
-- inflated/prometheus/charts/prometheus-node-exporter/templates/daemonset.yaml
-- inflated/prometheus/charts/prometheus-node-exporter/templates/serviceaccount.yaml
-- inflated/prometheus/charts/prometheus-node-exporter/templates/service.yaml
-- inflated/prometheus/charts/alertmanager/templates/serviceaccount.yaml
-- inflated/prometheus/charts/alertmanager/templates/services.yaml
-- inflated/prometheus/charts/alertmanager/templates/configmap.yaml
-- inflated/prometheus/charts/alertmanager/templates/statefulset.yaml
-- inflated/prometheus/charts/kube-state-metrics/templates/serviceaccount.yaml
-- inflated/prometheus/charts/kube-state-metrics/templates/deployment.yaml
-- inflated/prometheus/charts/kube-state-metrics/templates/role.yaml
-- inflated/prometheus/charts/kube-state-metrics/templates/service.yaml
-- inflated/prometheus/charts/kube-state-metrics/templates/clusterrolebinding.yaml
-- inflated/prometheus/charts/prometheus-pushgateway/templates/serviceaccount.yaml
-- inflated/prometheus/charts/prometheus-pushgateway/templates/deployment.yaml
-- inflated/prometheus/charts/prometheus-pushgateway/templates/service.yaml
-- inflated/prometheus/templates/serviceaccount.yaml
-- inflated/prometheus/templates/service.yaml
-- inflated/prometheus/templates/clusterrole.yaml
-- inflated/prometheus/templates/cm.yaml
-- inflated/prometheus/templates/deploy.yaml
-- inflated/prometheus/templates/clusterrolebinding.yaml
-- inflated/prometheus/templates/pvc.yaml
 
 - ingress.yaml
 

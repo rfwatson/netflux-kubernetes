@@ -7,16 +7,9 @@ metadata:
 
 spec:
   rules:
-  - host: k3s.netflux.io
+  - host: netflux.io
     http:
       paths:
-      - path: /test
-        pathType: Prefix
-        backend:
-          service:
-            name: whoami
-            port:
-              number: 5678
       - path: /
         pathType: Prefix
         backend:
@@ -66,7 +59,7 @@ spec:
               name: http
   tls:
     - hosts:
-      - k3s.netflux.io
+      - netflux.io
       - grafana.netflux.io
       - git.netflux.io
       - caldav.netflux.io

@@ -40,6 +40,9 @@ resources:
 - statefulset-radicale.yaml
 - svc-radicale.yaml
 
+- deploy-solar-toolkit-gateway.yaml
+- svc-solar-toolkit-gateway.yaml
+
 configMapGenerator:
 - name: gitea-scripts
   files:
@@ -98,6 +101,12 @@ secretGenerator:
   options:
     labels:
       app: gitea
+- name: solar-toolkit-gateway
+  files:
+  - database-url=secrets/solar-toolkit-gateway-database-url
+  options:
+    labels:
+      app: solar-toolkit-gateway
 
 patches:
 # Patch prometheus-server pod to mount the secrets volume.

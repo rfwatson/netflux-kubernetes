@@ -54,10 +54,21 @@ spec:
             name: radicale
             port:
               name: caldav
+  - host: solar-gateway.netflux.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: solar-toolkit-gateway
+            port:
+              name: http
   tls:
     - hosts:
       - k3s.netflux.io
       - grafana.netflux.io
       - git.netflux.io
       - caldav.netflux.io
+      - solar-gateway
       secretName: prod-ingress-tls

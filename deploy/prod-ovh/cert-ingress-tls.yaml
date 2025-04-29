@@ -11,9 +11,8 @@ spec:
   commonName: k3s.netflux.io
   dnsNames:
     - k3s.netflux.io
-    - grafana-k3s.netflux.io
-    - git-k3s.netflux.io
     - git.netflux.io
     - grafana.netflux.io
     - netflux.io
     - caldav.netflux.io
+    - solar-gateway.netflux.io

@@ -81,9 +81,6 @@ resources:
 - statefulset-synapse.yaml
 - svc-synapse.yaml
 
-- deploy-solar-toolkit-gateway.yaml
-- svc-solar-toolkit-gateway.yaml
-
 configMapGenerator:
 - name: invidious-scripts
   files:

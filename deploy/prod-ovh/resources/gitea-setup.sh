@@ -14,10 +14,10 @@ function configure_admin_user() {
     echo "No admin user '${GITEA_ADMIN_USERNAME}' found. Creating now..."
     gitea admin user create --admin --username "${GITEA_ADMIN_USERNAME}" --password "${GITEA_ADMIN_PASSWORD}" --email "${GITEA_ADMIN_EMAIL}" --must-change-password=false
     echo '...created.'
-  else
-    echo "Admin account '${GITEA_ADMIN_USERNAME}' already exists. Running update to sync password..."
-    gitea admin user change-password --username "${GITEA_ADMIN_USERNAME}" --password "${GITEA_ADMIN_PASSWORD}"
-    echo '...password sync done.'
+  # else
+  #   echo "Admin account '${GITEA_ADMIN_USERNAME}' already exists. Running update to sync password..."
+  #   gitea admin user change-password --username "${GITEA_ADMIN_USERNAME}" --password "${GITEA_ADMIN_PASSWORD}"
+  #   echo '...password sync done.'
   fi
 }
 

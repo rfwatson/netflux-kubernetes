@@ -5,5 +5,5 @@ metadata:
     tailscale.com/tailnet-fqdn: db.tail6afe.ts.net
   name: db
 spec:
-  externalName: 1401ba39-3eeb-4633-b727-bf5d3028da8c
+  externalName: ts-prod-db-pkllg.tailscale.svc.cluster.local
   type: ExternalName

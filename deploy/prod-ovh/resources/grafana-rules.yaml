@@ -213,7 +213,7 @@ groups:
             type: prometheus
             uid: PBFA97CFB590B2093
           editorMode: code
-          expr: 100 - ((node_filesystem_avail_bytes{instance="prod-db:9100",job="node",device!~'rootfs',mountpoint="/mnt/volume_db"} * 100) / node_filesystem_size_bytes{instance="prod-db:9100",job="node",device!~'rootfs',mountpoint="/mnt/volume_db"})
+          expr: 100 - ((node_filesystem_avail_bytes{instance="prod-db.default:9100",job="node",device!~'rootfs',mountpoint="/mnt/volume_db"} * 100) / node_filesystem_size_bytes{instance="prod-db.default:9100",job="node",device!~'rootfs',mountpoint="/mnt/volume_db"})
           hide: false
           instant: true
           intervalMs: 1000

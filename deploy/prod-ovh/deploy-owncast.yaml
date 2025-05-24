@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: owncast
+  labels:
+    app: owncast
+    component: web
+    app.kubernetes.io/name: owncast
+    app.kubernetes.io/instance: owncast
+spec:
+  selector:
+    matchLabels:
+      app: owncast
+      component: web
+  template:
+    metadata:
+      labels:
+        app: owncast
+        component: web
+        app.kubernetes.io/name: owncast
+        app.kubernetes.io/instance: owncast
+    spec:
+      containers:
+      - name: owncast
+        image: owncast/owncast:latest
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: data
+            mountPath: /app/data
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 1935
+          name: rtmp
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "250m"
+          limits:
+            memory: "8000Mi"
+            cpu: "2000m"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: owncast-data

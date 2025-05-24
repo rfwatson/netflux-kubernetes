@@ -43,6 +43,10 @@ resources:
 - deploy-solar-toolkit-gateway.yaml
 - svc-solar-toolkit-gateway.yaml
 
+- deploy-owncast.yaml
+- svc-owncast.yaml
+- pvc-owncast.yaml
+
 configMapGenerator:
 - name: gitea-scripts
   files:

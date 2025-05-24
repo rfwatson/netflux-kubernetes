@@ -57,6 +57,16 @@ spec:
             name: solar-toolkit-gateway
             port:
               name: http
+  - host: live.netflux.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: owncast
+            port:
+              name: http
   tls:
     - hosts:
       - netflux.io
@@ -64,4 +74,5 @@ spec:
       - git.netflux.io
       - caldav.netflux.io
       - solar-gateway
+      - live
       secretName: prod-ingress-tls

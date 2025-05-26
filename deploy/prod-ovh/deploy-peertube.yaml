@@ -1,0 +1,142 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peertube
+  labels:
+    app: peertube
+    component: web
+    app.kubernetes.io/name: peertube
+    app.kubernetes.io/instance: peertube
+spec:
+  selector:
+    matchLabels:
+      app: peertube
+      component: web
+  template:
+    metadata:
+      labels:
+        app: peertube
+        component: web
+        app.kubernetes.io/name: peertube
+        app.kubernetes.io/instance: peertube
+    spec:
+      serviceAccountName: peertube
+      containers:
+      - name: peertube
+        image: chocobozzz/peertube:production-bookworm
+        imagePullPolicy: Always
+        env:
+        - name: PEERTUBE_WEBSERVER_HOSTNAME
+          value: tube.netflux.io
+        - name: PEERTUBE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_SECRET
+        - name: PEERTUBE_DB_HOSTNAME
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_DB_HOSTNAME
+        - name: PEERTUBE_DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_DB_PORT
+        - name: PEERTUBE_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_DB_NAME
+        - name: PEERTUBE_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_DB_USERNAME
+        - name: PEERTUBE_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_DB_PASSWORD
+        - name: PEERTUBE_DB_SSL
+          value: "true"
+        - name: PEERTUBE_REDIS_HOSTNAME
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_REDIS_HOSTNAME
+        - name: PEERTUBE_REDIS_PORT
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_REDIS_PORT
+        - name: PEERTUBE_REDIS_AUTH
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_REDIS_AUTH
+        - name: PEERTUBE_ADMIN_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_ADMIN_EMAIL
+        - name: PEERTUBE_SMTP_HOSTNAME
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_SMTP_HOSTNAME
+        - name: PEERTUBE_SMTP_PORT
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_SMTP_PORT
+        - name: PEERTUBE_SMTP_FROM
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_SMTP_FROM
+        - name: PEERTUBE_SMTP_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_SMTP_USERNAME
+        - name: PEERTUBE_SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_SMTP_PASSWORD
+        - name: PEERTUBE_INSTANCE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_INSTANCE_NAME
+        - name: PEERTUBE_INSTANCE_DESCRIPTION
+          valueFrom:
+            secretKeyRef:
+              name: peertube-env
+              key: PEERTUBE_INSTANCE_DESCRIPTION
+        ports:
+        - containerPort: 9000
+          name: http
+          protocol: TCP
+        volumeMounts:
+          - name: data
+            mountPath: /data
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "250m"
+          limits:
+            memory: "8000Mi"
+            cpu: "2000m"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: peertube-data

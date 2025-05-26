@@ -1,0 +1,17 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    ports:
+      ssh: 
+        port: 22
+        exposedPort: 22
+    additionalArguments:
+      - "--entryPoints.web.forwardedHeaders.trustedIPs=127.0.0.1/32,10.42.0.0/16"
+      - "--entryPoints.websecure.forwardedHeaders.trustedIPs=127.0.0.1/32,10.42.0.0/16"
+    service:
+      spec:
+        externalTrafficPolicy: Local

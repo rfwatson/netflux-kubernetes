@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: valkey
+  labels:
+    app: valkey
+    component: valkey
+    app.kubernetes.io/name: valkey
+    app.kubernetes.io/instance: valkey
+spec:
+  selector:
+    matchLabels:
+      app: valkey
+      component: valkey
+  template:
+    metadata:
+      labels:
+        app: valkey
+        component: valkey
+        app.kubernetes.io/name: valkey
+        app.kubernetes.io/instance: valkey
+    spec:
+      serviceAccountName: valkey
+      containers:
+      - image: ghcr.io/valkey-io/valkey:8-bookworm
+        imagePullPolicy: Always
+        name: valkey
+        command: ["valkey-server", "/etc/valkey.conf"]
+        ports:
+        - name: redis
+          protocol: TCP
+          containerPort: 6379
+        volumeMounts:
+          - name: config
+            mountPath: /etc/valkey.conf
+            subPath: valkey.conf
+          - mountPath: /data
+            name: data
+        resources:
+          requests:
+            memory: 128Mi
+            cpu: 100m
+          limits:
+            memory: 8Gi
+            cpu: 2000m
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: valkey-data
+      - name: config
+        secret:
+          secretName: valkey-config
+          items:
+          - key: valkey.conf
+            path: valkey.conf

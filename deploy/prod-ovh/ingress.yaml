@@ -3,7 +3,9 @@ kind: Ingress
 metadata:
   name: ingress
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: default-prod-redirect-ssl@kubernetescrd
+    # chain your middlewares, noting the @kubernetescrd suffix
+    traefik.ingress.kubernetes.io/router.middlewares: |
+      default-prod-redirect-ssl@kubernetescrd,default-prod-headers@kubernetescrd
 
 spec:
   rules:
@@ -67,12 +69,24 @@ spec:
             name: owncast
             port:
               name: http
+  - host: tube.netflux.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: peertube
+            port:
+              name: http
+
   tls:
     - hosts:
       - netflux.io
       - grafana.netflux.io
       - git.netflux.io
       - caldav.netflux.io
-      - solar-gateway
-      - live
+      - solar-gateway.netflux.io
+      - live.netflux.io
+      - tube.netflux.io
       secretName: prod-ingress-tls

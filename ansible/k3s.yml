@@ -15,7 +15,7 @@
     args:
       creates: /usr/local/bin/k3s
 
-  # Open port 22 on Traefik. This is the official k3s way to do it - deploy a
+  # Traefik customizations. This is the official k3s way to do it - deploy a
   # HelmChartConfig resource - but it can't easily be provisioned with
   # kustomize for the usual namePrefix reasons.
   #
@@ -24,7 +24,7 @@
   - name: Deploy Traefik HelmChart manifest with SSH entrypoint for k3s
     become: true
     ansible.builtin.template:
-      src: templates/helm-chart-traefik-gitea.yaml
+      src: templates/helm-chart-traefik.yaml
       dest: /var/lib/rancher/k3s/server/manifests/traefik-gitea.yaml
       mode: 0644
 

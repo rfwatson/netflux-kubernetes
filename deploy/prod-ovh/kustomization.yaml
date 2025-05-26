@@ -35,7 +35,7 @@ resources:
 - statefulset-gitea.yaml
 - svc-gitea.yaml
 - traefik-ingress-route-gitea-ssh.yaml
-- traefik-middleware-ssl-redirect.yaml
+- traefik-middleware.yaml
 
 - statefulset-radicale.yaml
 - svc-radicale.yaml
@@ -46,6 +46,16 @@ resources:
 - deploy-owncast.yaml
 - svc-owncast.yaml
 - pvc-owncast.yaml
+
+- serviceaccount-peertube.yaml
+- deploy-peertube.yaml
+- svc-peertube.yaml
+- pvc-peertube.yaml
+
+- serviceaccount-valkey.yaml
+- deploy-valkey.yaml
+- pvc-valkey.yaml
+- svc-valkey.yaml
 
 configMapGenerator:
 - name: gitea-scripts
@@ -111,6 +121,12 @@ secretGenerator:
   options:
     labels:
       app: solar-toolkit-gateway
+- name: peertube-env
+  envs:
+    - secrets/peertube.env
+- name: valkey-config
+  files:
+  - valkey.conf=secrets/valkey.conf
 
 patches:
 # Patch prometheus-server pod to mount the secrets volume.

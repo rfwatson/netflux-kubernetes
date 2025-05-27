@@ -22,10 +22,16 @@ spec:
         app.kubernetes.io/instance: peertube
     spec:
       serviceAccountName: peertube
+      securityContext:
+        fsGroup: 999
       containers:
       - name: peertube
         image: chocobozzz/peertube:production-bookworm
         imagePullPolicy: Always
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 999
         env:
         - name: PEERTUBE_WEBSERVER_HOSTNAME
           value: tube.netflux.io

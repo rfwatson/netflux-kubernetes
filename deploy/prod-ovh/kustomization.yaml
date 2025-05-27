@@ -37,6 +37,10 @@ resources:
 - traefik-ingress-route-gitea-ssh.yaml
 - traefik-middleware.yaml
 
+- deploy-robots-txt.yaml
+- svc-robots-txt.yaml
+- ingress-robots-txt.yaml
+
 - statefulset-radicale.yaml
 - svc-radicale.yaml
 
@@ -96,6 +100,11 @@ configMapGenerator:
   options:
     labels:
       app: radicale
+- name: robots-txt
+  files:
+  - robots.txt
+  options:
+    disableNameSuffixHash: true
 
 secretGenerator:
 - name: prometheus-credentials

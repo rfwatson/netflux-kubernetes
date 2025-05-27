@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: robots-txt
+  annotations:
+    traefik.ingress.kubernetes.io/router.priority: "10000"
+spec:
+  rules:
+  - host: '*.netflux.io'
+    http:
+      paths:
+      - path: /robots.txt
+        pathType: Prefix
+        backend:
+          service:
+            name: robots-txt
+            port:
+              number: 80

@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robots-txt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: robots-txt
+  template:
+    metadata:
+      labels: 
+        app: robots-txt
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: robots
+          mountPath: /usr/share/nginx/html/robots.txt
+          subPath: robots.txt
+      volumes:
+      - name: robots
+        configMap:
+          name: robots-txt

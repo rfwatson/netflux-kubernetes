@@ -119,7 +119,7 @@ groups:
           intervalMs: 1000
           maxDataPoints: 43200
           rawQuery: true
-          rawSql: 'SELECT temperature FROM et_runtime_data WHERE timestamp > (NOW() - ''15 minutes''::interval) ORDER BY "timestamp" DESC LIMIT 50 '
+          rawSql: 'SELECT temperature FROM et_runtime_data WHERE timestamp > (NOW() - ''60 minutes''::interval) ORDER BY "timestamp" DESC LIMIT 50 '
           refId: A
           sql:
             columns:

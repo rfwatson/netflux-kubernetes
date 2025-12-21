@@ -51,11 +51,6 @@ resources:
 - svc-owncast.yaml
 - pvc-owncast.yaml
 
-- serviceaccount-peertube.yaml
-- deploy-peertube.yaml
-- svc-peertube.yaml
-- pvc-peertube.yaml
-
 - serviceaccount-valkey.yaml
 - deploy-valkey.yaml
 - pvc-valkey.yaml
@@ -130,9 +125,6 @@ secretGenerator:
   options:
     labels:
       app: solar-toolkit-gateway
-- name: peertube-env
-  envs:
-    - secrets/peertube.env
 - name: valkey-config
   files:
   - valkey.conf=secrets/valkey.conf

@@ -69,16 +69,6 @@ spec:
             name: owncast
             port:
               name: http
-  - host: tube.netflux.io
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: peertube
-            port:
-              name: http
 
   tls:
     - hosts:
@@ -88,5 +78,4 @@ spec:
       - caldav.netflux.io
       - solar-gateway.netflux.io
       - live.netflux.io
-      - tube.netflux.io
       secretName: prod-ingress-tls

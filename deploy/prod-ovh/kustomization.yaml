@@ -47,10 +47,6 @@ resources:
 - deploy-solar-toolkit-gateway.yaml
 - svc-solar-toolkit-gateway.yaml
 
-- deploy-owncast.yaml
-- svc-owncast.yaml
-- pvc-owncast.yaml
-
 - serviceaccount-valkey.yaml
 - deploy-valkey.yaml
 - pvc-valkey.yaml
